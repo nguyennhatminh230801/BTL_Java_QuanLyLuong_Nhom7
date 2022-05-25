@@ -1,4 +1,4 @@
-package com.nguyennhatminh285.quanlyluongthuong.util.SaveToFile;
+package com.nguyennhatminh285.quanlyluongthuong.util;
 
 
 import com.nguyennhatminh285.quanlyluongthuong.Model.TaiKhoan;
@@ -18,7 +18,7 @@ import java.io.ObjectOutputStream;
  * @author Admin
  */
 public class XuLyFile {
-    private static final String DUONG_DAN_FILE = "C:\\matKhau.dat";
+    private static final String DUONG_DAN_FILE = "C:\\saveData.dat";
     
     public void luuTaiKhoan(TaiKhoan taiKhoan) throws IOException{
         ObjectOutputStream objectOutputStream = null;

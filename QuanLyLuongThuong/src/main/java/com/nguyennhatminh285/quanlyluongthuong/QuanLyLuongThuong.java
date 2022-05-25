@@ -5,7 +5,7 @@
 
 package com.nguyennhatminh285.quanlyluongthuong;
 
-import com.nguyennhatminh285.quanlyluongthuong.View.DangNhap.DangNhapUI;
+import com.nguyennhatminh285.quanlyluongthuong.View.XemChiTietLuongCaNhan.XemChiTietLuongCaNhanUI;
 
 /**
  *
@@ -14,6 +14,7 @@ import com.nguyennhatminh285.quanlyluongthuong.View.DangNhap.DangNhapUI;
 public class QuanLyLuongThuong {
 
     public static void main(String[] args) {
-        new DangNhapUI().onStartGUI();
+        new XemChiTietLuongCaNhanUI().onStartGUI();
+        
     }
 }

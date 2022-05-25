@@ -4,6 +4,10 @@
  */
 package com.nguyennhatminh285.quanlyluongthuong.View.DangNhap;
 
+import com.nguyennhatminh285.quanlyluongthuong.Model.TaiKhoan;
+import com.nguyennhatminh285.quanlyluongthuong.View.DangKy.DangKyUI;
+import java.util.Arrays;
+
 /**
  *
  * @author Admin
@@ -15,6 +19,7 @@ public class DangNhapUI extends javax.swing.JFrame {
      */
     public DangNhapUI() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -34,7 +39,7 @@ public class DangNhapUI extends javax.swing.JFrame {
         chkSavePassword = new javax.swing.JCheckBox();
         btnDangNhap = new javax.swing.JButton();
         btnHuyBo = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
+        linkDangKy = new javax.swing.JLabel();
         txtPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -75,8 +80,13 @@ public class DangNhapUI extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setFont(jLabel5.getFont().deriveFont((jLabel5.getFont().getStyle() | java.awt.Font.ITALIC) | java.awt.Font.BOLD));
-        jLabel5.setText("Bạn chưa có tài khoản? Đăng Ký Ngay");
+        linkDangKy.setFont(linkDangKy.getFont().deriveFont((linkDangKy.getFont().getStyle() | java.awt.Font.ITALIC) | java.awt.Font.BOLD));
+        linkDangKy.setText("Bạn chưa có tài khoản? Đăng Ký Ngay");
+        linkDangKy.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                linkDangKyMouseClicked(evt);
+            }
+        });
 
         txtPassword.setFont(txtPassword.getFont().deriveFont(txtPassword.getFont().getSize()+3f));
 
@@ -112,7 +122,7 @@ public class DangNhapUI extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(chkSavePassword)
                                 .addGap(66, 66, 66)
-                                .addComponent(jLabel5))
+                                .addComponent(linkDangKy))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -139,7 +149,7 @@ public class DangNhapUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(chkSavePassword)
-                            .addComponent(jLabel5))
+                            .addComponent(linkDangKy))
                         .addContainerGap(91, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -157,12 +167,21 @@ public class DangNhapUI extends javax.swing.JFrame {
     }//GEN-LAST:event_chkSavePasswordActionPerformed
 
     private void btnHuyBoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyBoActionPerformed
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btnHuyBoActionPerformed
 
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
-        // TODO add your handling code here:
+        String username = txtTaiKhoan.getText();
+        String password = Arrays.toString(txtPassword.getPassword());
+        TaiKhoan taiKhoan = new TaiKhoan(username, password);
+        
+        
     }//GEN-LAST:event_btnDangNhapActionPerformed
+
+    private void linkDangKyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_linkDangKyMouseClicked
+        new DangKyUI().onStartGUI();
+        this.dispose();
+    }//GEN-LAST:event_linkDangKyMouseClicked
 
     /**
      * 
@@ -207,7 +226,7 @@ public class DangNhapUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel linkDangKy;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtTaiKhoan;
     // End of variables declaration//GEN-END:variables
