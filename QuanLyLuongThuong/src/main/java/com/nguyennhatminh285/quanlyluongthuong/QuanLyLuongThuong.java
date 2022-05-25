@@ -5,7 +5,7 @@
 
 package com.nguyennhatminh285.quanlyluongthuong;
 
-import com.nguyennhatminh285.quanlyluongthuong.View.XemChiTietLuongCaNhan.XemChiTietLuongCaNhanUI;
+import com.nguyennhatminh285.quanlyluongthuong.View.BaoTriThongTinTienThuong.BaoTriThongTinTienThuongUI;
 
 /**
  *
@@ -14,7 +14,6 @@ import com.nguyennhatminh285.quanlyluongthuong.View.XemChiTietLuongCaNhan.XemChi
 public class QuanLyLuongThuong {
 
     public static void main(String[] args) {
-        new XemChiTietLuongCaNhanUI().onStartGUI();
-        
+        new BaoTriThongTinTienThuongUI().onStartGUI();
     }
 }
