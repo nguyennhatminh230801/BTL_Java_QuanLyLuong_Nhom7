@@ -19,6 +19,7 @@ public class ThongKePhongBanTheoThangNam extends javax.swing.JFrame {
     public ThongKePhongBanTheoThangNam() {
         initComponents();
         generateComboBoxData();
+        setLocationRelativeTo(null);
     }
 
     /**
