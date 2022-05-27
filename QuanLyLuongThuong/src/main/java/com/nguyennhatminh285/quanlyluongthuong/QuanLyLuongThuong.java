@@ -5,7 +5,7 @@
 
 package com.nguyennhatminh285.quanlyluongthuong;
 
-import com.nguyennhatminh285.quanlyluongthuong.View.BaoTriThongTinTienThuong.BaoTriThongTinTienThuongUI;
+import com.nguyennhatminh285.quanlyluongthuong.View.ThongKePhongBanTheoThangNam.ThongKePhongBanTheoThangNam;
 
 /**
  *
@@ -14,6 +14,6 @@ import com.nguyennhatminh285.quanlyluongthuong.View.BaoTriThongTinTienThuong.Bao
 public class QuanLyLuongThuong {
 
     public static void main(String[] args) {
-        new BaoTriThongTinTienThuongUI().onStartGUI();
+        new ThongKePhongBanTheoThangNam().onStartGUI();
     }
 }

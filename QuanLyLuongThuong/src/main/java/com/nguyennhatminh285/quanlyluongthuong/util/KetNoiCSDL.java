@@ -14,7 +14,7 @@ import java.sql.DriverManager;
  */
 public class KetNoiCSDL {
     private static final String SERVER = "DESKTOP-GNLFKS4\\SQLEXPRESS";
-    private static final String DATABASE = "QuanLyLuongThuong";
+    private static final String DATABASE = "QLLuongThuong";
     private static final String PORT = "1433";
     
     private static final String URL = "jdbc:sqlserver://" + SERVER
