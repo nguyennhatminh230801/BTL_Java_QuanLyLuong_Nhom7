@@ -32,8 +32,8 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
+                  <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -52,11 +52,11 @@
                           <Component id="cboThang" max="32767" attributes="0"/>
                           <Component id="cboNam" alignment="1" pref="338" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                       <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="141" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -96,7 +96,7 @@
             <Font bold="true" component="jLabel1" property="font" relativeSize="true" size="11"/>
           </FontInfo>
         </Property>
-        <Property name="text" type="java.lang.String" value="Xem C&#xf4;ng Nh&#xe2;n Vi&#xea;n Theo Th&#xe1;ng N&#x103;m"/>
+        <Property name="text" type="java.lang.String" value="Xem Th&#x1ed1;ng K&#xea; L&#x1b0;&#x1a1;ng Cho C&#x1ea3; C&#xf4;ng Ty"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="cboThang">

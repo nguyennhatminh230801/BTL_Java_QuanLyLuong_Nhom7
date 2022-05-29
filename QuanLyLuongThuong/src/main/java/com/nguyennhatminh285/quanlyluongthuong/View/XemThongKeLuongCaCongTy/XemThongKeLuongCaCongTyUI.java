@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.nguyennhatminh285.quanlyluongthuong.View.ThongKePhongBanTheoThangNam;
+package com.nguyennhatminh285.quanlyluongthuong.View.XemThongKeLuongCaCongTy;
 
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
@@ -11,12 +11,12 @@ import javax.swing.DefaultComboBoxModel;
  *
  * @author Admin
  */
-public class ThongKePhongBanTheoThangNam extends javax.swing.JFrame {
+public class XemThongKeLuongCaCongTyUI extends javax.swing.JFrame {
 
     /**
      * Creates new form ThongKePhongBanTheoThangNam
      */
-    public ThongKePhongBanTheoThangNam() {
+    public XemThongKeLuongCaCongTyUI() {
         initComponents();
         generateComboBoxData();
         setLocationRelativeTo(null);
@@ -46,7 +46,7 @@ public class ThongKePhongBanTheoThangNam extends javax.swing.JFrame {
         setTitle("Thống Kê Lương Phòng Ban Theo Tháng Năm");
 
         jLabel1.setFont(jLabel1.getFont().deriveFont(jLabel1.getFont().getStyle() | java.awt.Font.BOLD, jLabel1.getFont().getSize()+11));
-        jLabel1.setText("Xem Công Nhân Viên Theo Tháng Năm");
+        jLabel1.setText("Xem Thống Kê Lương Cho Cả Công Ty");
 
         cboThang.setFont(cboThang.getFont().deriveFont(cboThang.getFont().getSize()+3f));
         cboThang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -116,9 +116,9 @@ public class ThongKePhongBanTheoThangNam extends javax.swing.JFrame {
                             .addComponent(cboTenPhong, 0, 338, Short.MAX_VALUE)
                             .addComponent(cboThang, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cboNam, javax.swing.GroupLayout.Alignment.TRAILING, 0, 338, Short.MAX_VALUE))
-                        .addGap(67, 67, 67)
+                        .addGap(31, 31, 31)
                         .addComponent(jButton1)))
-                .addGap(105, 105, 105))
+                .addGap(141, 141, 141))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,20 +163,21 @@ public class ThongKePhongBanTheoThangNam extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ThongKePhongBanTheoThangNam.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(XemThongKeLuongCaCongTyUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ThongKePhongBanTheoThangNam.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(XemThongKeLuongCaCongTyUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ThongKePhongBanTheoThangNam.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(XemThongKeLuongCaCongTyUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ThongKePhongBanTheoThangNam.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(XemThongKeLuongCaCongTyUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ThongKePhongBanTheoThangNam().setVisible(true);
+                new XemThongKeLuongCaCongTyUI().setVisible(true);
             }
         });
     }

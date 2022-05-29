@@ -15,6 +15,6 @@ import java.sql.Connection;
 public class DangNhapController {
     private static final Connection connection = KetNoiCSDL.getConnection();
     public static void onLoginEvent(TaiKhoan taiKhoan){
-        
+        String query = "";
     }
 }
