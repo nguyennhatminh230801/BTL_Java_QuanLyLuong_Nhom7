@@ -4,6 +4,9 @@
  */
 package com.nguyennhatminh285.quanlyluongthuong.View.XemThongTinCaNhan;
 
+import com.nguyennhatminh285.quanlyluongthuong.Controller.XemThongTinCaNhanController;
+import com.nguyennhatminh285.quanlyluongthuong.Model.NhanVien;
+
 /**
  *
  * @author Admin
@@ -15,6 +18,7 @@ public class XemThongTinCaNhanUI extends javax.swing.JFrame {
      */
     public XemThongTinCaNhanUI() {
         initComponents();
+        initData();
     }
 
     /**
@@ -26,21 +30,23 @@ public class XemThongTinCaNhanUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        rdGroupGioiTinh = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        txtHoTen = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        txtNgaySinh = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtDiaChi = new javax.swing.JTextArea();
         jLabel9 = new javax.swing.JLabel();
         cboChucVu = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         cboTrinhDo = new javax.swing.JComboBox<>();
         btnSuaThongTinCaNhan = new javax.swing.JButton();
+        rdNam = new javax.swing.JRadioButton();
+        rdNu = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,9 +56,7 @@ public class XemThongTinCaNhanUI extends javax.swing.JFrame {
         jLabel2.setFont(jLabel2.getFont().deriveFont(jLabel2.getFont().getSize()+3f));
         jLabel2.setText("Họ tên:");
 
-        jTextField2.setFont(jTextField2.getFont().deriveFont(jTextField2.getFont().getSize()+3f));
-
-        jTextField3.setFont(jTextField3.getFont().deriveFont(jTextField3.getFont().getSize()+3f));
+        txtHoTen.setFont(txtHoTen.getFont().deriveFont(txtHoTen.getFont().getSize()+3f));
 
         jLabel3.setFont(jLabel3.getFont().deriveFont(jLabel3.getFont().getSize()+3f));
         jLabel3.setText("Giới Tính:");
@@ -60,14 +64,14 @@ public class XemThongTinCaNhanUI extends javax.swing.JFrame {
         jLabel5.setFont(jLabel5.getFont().deriveFont(jLabel5.getFont().getSize()+3f));
         jLabel5.setText("Ngày Sinh:");
 
-        jTextField4.setFont(jTextField4.getFont().deriveFont(jTextField4.getFont().getSize()+3f));
+        txtNgaySinh.setFont(txtNgaySinh.getFont().deriveFont(txtNgaySinh.getFont().getSize()+3f));
 
         jLabel7.setFont(jLabel7.getFont().deriveFont(jLabel7.getFont().getSize()+3f));
         jLabel7.setText("Địa Chỉ:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtDiaChi.setColumns(20);
+        txtDiaChi.setRows(5);
+        jScrollPane1.setViewportView(txtDiaChi);
 
         jLabel9.setFont(jLabel9.getFont().deriveFont(jLabel9.getFont().getSize()+3f));
         jLabel9.setText("Chức Vụ:");
@@ -83,6 +87,19 @@ public class XemThongTinCaNhanUI extends javax.swing.JFrame {
 
         btnSuaThongTinCaNhan.setFont(btnSuaThongTinCaNhan.getFont().deriveFont(btnSuaThongTinCaNhan.getFont().getSize()+3f));
         btnSuaThongTinCaNhan.setText("Sửa Thông Tin Cá Nhân");
+        btnSuaThongTinCaNhan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaThongTinCaNhanActionPerformed(evt);
+            }
+        });
+
+        rdGroupGioiTinh.add(rdNam);
+        rdNam.setFont(rdNam.getFont().deriveFont(rdNam.getFont().getSize()+3f));
+        rdNam.setText("Nam");
+
+        rdGroupGioiTinh.add(rdNu);
+        rdNu.setFont(rdNu.getFont().deriveFont(rdNu.getFont().getSize()+3f));
+        rdNu.setText("Nữ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -97,8 +114,11 @@ public class XemThongTinCaNhanUI extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtHoTen, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(rdNam)
+                                .addGap(18, 18, 18)
+                                .addComponent(rdNu))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
@@ -110,7 +130,7 @@ public class XemThongTinCaNhanUI extends javax.swing.JFrame {
                             .addComponent(cboChucVu, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
+                                    .addComponent(txtNgaySinh, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
                                     .addComponent(jScrollPane1))
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(cboTrinhDo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -132,15 +152,16 @@ public class XemThongTinCaNhanUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtHoTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(rdNam)
+                    .addComponent(rdNu))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
@@ -155,16 +176,17 @@ public class XemThongTinCaNhanUI extends javax.swing.JFrame {
                     .addComponent(jLabel10))
                 .addGap(18, 18, 18)
                 .addComponent(btnSuaThongTinCaNhan)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
+    private void btnSuaThongTinCaNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaThongTinCaNhanActionPerformed
+        
+    }//GEN-LAST:event_btnSuaThongTinCaNhanActionPerformed
+
+    public void onStartGUI() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -196,6 +218,32 @@ public class XemThongTinCaNhanUI extends javax.swing.JFrame {
         });
     }
 
+    private void initData(){
+        NhanVien nhanVien = XemThongTinCaNhanController.onCallUserData();
+        txtHoTen.setText(nhanVien.getTenNhanVien());
+        txtNgaySinh.setText(nhanVien.getNgaySinh());
+        txtDiaChi.setText(nhanVien.getDiaChi());
+        
+        for(int i = 0; i < cboChucVu.getItemCount() ; i++){
+            if(cboChucVu.getItemAt(i).equalsIgnoreCase(nhanVien.getChucVu())){
+                cboChucVu.setSelectedIndex(i);
+                break;
+            }
+        }
+        
+        for(int i = 0; i < cboTrinhDo.getItemCount() ; i++){
+            if(cboTrinhDo.getItemAt(i).equalsIgnoreCase(nhanVien.getTrinhDo())){
+                cboTrinhDo.setSelectedIndex(i);
+                break;
+            }
+        }
+        
+        if(nhanVien.getGioiTinh() == 0){
+            rdNam.setSelected(true);
+        }else{
+            rdNu.setSelected(true);
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSuaThongTinCaNhan;
     private javax.swing.JComboBox<String> cboChucVu;
@@ -208,9 +256,11 @@ public class XemThongTinCaNhanUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.ButtonGroup rdGroupGioiTinh;
+    private javax.swing.JRadioButton rdNam;
+    private javax.swing.JRadioButton rdNu;
+    private javax.swing.JTextArea txtDiaChi;
+    private javax.swing.JTextField txtHoTen;
+    private javax.swing.JTextField txtNgaySinh;
     // End of variables declaration//GEN-END:variables
 }

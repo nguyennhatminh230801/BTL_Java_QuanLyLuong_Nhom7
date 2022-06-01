@@ -7,6 +7,7 @@ package com.nguyennhatminh285.quanlyluongthuong.Controller;
 import com.nguyennhatminh285.quanlyluongthuong.Model.TaiKhoan;
 import com.nguyennhatminh285.quanlyluongthuong.View.TrangChu.TrangChuAdmin.TrangChuAdminUI;
 import com.nguyennhatminh285.quanlyluongthuong.util.KetNoiCSDL;
+import com.nguyennhatminh285.quanlyluongthuong.util.XuLyFile;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,7 +21,7 @@ public class DangNhapController {
     private static final String findExistUser = "select count(*) from TAIKHOAN where taikhoan = ? " 
     + "and matkhau = ?";
     
-    private static final String quyenNguoiDung = "select quyen from taikhoan where taikhoan = ? and matkhau = ?";
+    private static final String quyenNguoiDung = "select mataikhoan, quyen from taikhoan where taikhoan = ? and matkhau = ?";
     public static String onLoginEvent(TaiKhoan taiKhoan){
         try{
             Connection connection = KetNoiCSDL.getConnection();
@@ -45,7 +46,9 @@ public class DangNhapController {
             ResultSet resultSet1 = preparedStatement1.executeQuery();
             resultSet1.next();
             
-            int quyen = resultSet1.getInt(1);
+            int ID = resultSet1.getInt(1);
+            XuLyFile.luuIDTaiKhoan(ID);
+            int quyen = resultSet1.getInt(2);
             
             switch(quyen){
                 case 0:

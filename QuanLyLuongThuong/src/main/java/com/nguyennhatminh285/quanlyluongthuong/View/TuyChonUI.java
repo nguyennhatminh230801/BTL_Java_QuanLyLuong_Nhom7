@@ -14,7 +14,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
  *
  * @author Admin
  */
-public class XoaBanGhiUICall {
+public class TuyChonUI {
     private static final int CHAP_NHAN = 0;
     private static final int HUY_BO = 1;
     

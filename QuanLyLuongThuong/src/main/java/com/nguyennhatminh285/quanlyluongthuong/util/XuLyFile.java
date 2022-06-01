@@ -19,6 +19,7 @@ import java.io.ObjectOutputStream;
  */
 public class XuLyFile {
     private static final String DUONG_DAN_FILE = "C:\\saveData.dat";
+    private static final String LUU_ID = "C:\\saveID.dat";
     
     public static void luuTaiKhoan(TaiKhoan taiKhoan) throws IOException{
         ObjectOutputStream objectOutputStream = null;
@@ -43,6 +44,35 @@ public class XuLyFile {
             return (TaiKhoan) objectInputStream.readObject();
         } catch (Exception e) {
             return null;
+        } finally { 
+            if(objectInputStream != null){
+                objectInputStream.close();
+            }
+        }
+    }
+    
+    public static void luuIDTaiKhoan(int ID) throws IOException{
+        ObjectOutputStream objectOutputStream = null;
+        
+        try {
+            objectOutputStream = new ObjectOutputStream(new FileOutputStream(LUU_ID));
+            objectOutputStream.writeInt(ID);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if(objectOutputStream != null){
+                objectOutputStream.close();
+            }
+        }
+    }
+    
+    public static int layIDTaiKhoan() throws IOException{
+        ObjectInputStream objectInputStream = null;
+        try {
+            objectInputStream = new ObjectInputStream(new FileInputStream(DUONG_DAN_FILE));
+            return objectInputStream.readInt();
+        } catch (Exception e) {
+            return -1;
         } finally { 
             if(objectInputStream != null){
                 objectInputStream.close();

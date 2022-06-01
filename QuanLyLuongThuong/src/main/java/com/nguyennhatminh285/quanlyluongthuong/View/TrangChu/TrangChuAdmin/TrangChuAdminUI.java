@@ -6,6 +6,11 @@ package com.nguyennhatminh285.quanlyluongthuong.View.TrangChu.TrangChuAdmin;
 
 import com.nguyennhatminh285.quanlyluongthuong.View.BaoTriThongTinHeSoLuong.BaoTriThongTinHeSoLuongUI;
 import com.nguyennhatminh285.quanlyluongthuong.View.BaoTriThongTinNhanVien.BaoTriThongTinNhanVienUI;
+import com.nguyennhatminh285.quanlyluongthuong.View.BaoTriThongTinPhongBan.BaoTriThongTinPhongBanUI;
+import com.nguyennhatminh285.quanlyluongthuong.View.BaoTriThongTinPhuCap.BaoTriThongTinPhuCapUI;
+import com.nguyennhatminh285.quanlyluongthuong.View.BaoTriThongTinTienThuong.BaoTriThongTinTienThuongUI;
+import com.nguyennhatminh285.quanlyluongthuong.View.TuyChonUI;
+import com.nguyennhatminh285.quanlyluongthuong.util.IOptionEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -203,6 +208,47 @@ public class TrangChuAdminUI extends javax.swing.JFrame implements ActionListene
         }
         
         if(jButton.equals(btnPhongBan)){
+            new BaoTriThongTinPhongBanUI().onStartGUI();
+            this.dispose();
+            return;
+        }
+        
+        if(jButton.equals(btnPhuCap)){
+            new BaoTriThongTinPhuCapUI().onStartGUI();
+            this.dispose();
+            return;
+        }
+        
+        if(jButton.equals(btnChamCong)){
+            
+        }
+        
+        if(jButton.equals(btnTienThuong)){
+            new BaoTriThongTinTienThuongUI().onStartGUI();
+            this.dispose();
+            return;
+        }
+        
+        if(jButton.equals(btnHocPhan)){
+            
+        }
+        
+        if(jButton.equals(btnThoat)){
+            TuyChonUI tuyChonUI = new TuyChonUI();
+            
+            tuyChonUI.setOnHandleOptionEvent(new IOptionEvent() {
+                @Override
+                public void onAcceptEvent() {
+                    dispose();
+                }
+
+                @Override
+                public void onCancelEvent() {
+                    
+                }
+            });
+            
+            tuyChonUI.onCallGUI(this.getContentPane(), "Bạn có muốn thoát chương trình", "Thông Báo");
             
         }
     }

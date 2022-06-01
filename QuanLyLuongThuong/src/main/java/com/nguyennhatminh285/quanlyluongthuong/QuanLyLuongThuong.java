@@ -6,6 +6,7 @@
 package com.nguyennhatminh285.quanlyluongthuong;
 
 import com.nguyennhatminh285.quanlyluongthuong.View.DangNhap.DangNhapUI;
+import com.nguyennhatminh285.quanlyluongthuong.View.XemThongTinCaNhan.XemThongTinCaNhanUI;
 import java.io.IOException;
 
 /**
@@ -16,5 +17,6 @@ public class QuanLyLuongThuong {
 
     public static void main(String[] args) throws IOException {
         new DangNhapUI().onStartGUI();
+        //XemThongTinCaNhanUI().onStartGUI();
     }
 }
