@@ -7,7 +7,9 @@ package com.nguyennhatminh285.quanlyluongthuong.View.DangKy;
 import com.nguyennhatminh285.quanlyluongthuong.Controller.DangKyController;
 import com.nguyennhatminh285.quanlyluongthuong.Model.TaiKhoan;
 import com.nguyennhatminh285.quanlyluongthuong.View.DangNhap.DangNhapUI;
-import java.util.Arrays;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -201,7 +203,11 @@ public class DangKyUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnHuyBoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyBoActionPerformed
-        new DangNhapUI().onStartGUI();
+        try {
+            new DangNhapUI().onStartGUI();
+        } catch (IOException ex) {
+            Logger.getLogger(DangKyUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.dispose();
     }//GEN-LAST:event_btnHuyBoActionPerformed
 
@@ -212,6 +218,8 @@ public class DangKyUI extends javax.swing.JFrame {
            String nhapLaiMatKhau = String.valueOf(txtRePassword.getPassword());
            int quyen = cboNgheNghiep.getSelectedIndex() + 1;
            
+           taiKhoan = taiKhoan.trim();
+           matKhau = matKhau.trim();
            if("".equals(taiKhoan) || "".equals(matKhau)){
                throw new Exception("Không được để trống mật khẩu");
            }

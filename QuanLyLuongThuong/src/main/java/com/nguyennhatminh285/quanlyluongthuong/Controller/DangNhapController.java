@@ -5,6 +5,7 @@
 package com.nguyennhatminh285.quanlyluongthuong.Controller;
 
 import com.nguyennhatminh285.quanlyluongthuong.Model.TaiKhoan;
+import com.nguyennhatminh285.quanlyluongthuong.View.TrangChu.TrangChuAdmin.TrangChuAdminUI;
 import com.nguyennhatminh285.quanlyluongthuong.util.KetNoiCSDL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,17 +28,32 @@ public class DangNhapController {
             //Xử lý tìm tài khoản tồn tại
             PreparedStatement preparedStatement = connection.prepareStatement(findExistUser);
             preparedStatement.setString(1, taiKhoan.getTaiKhoan());
+            preparedStatement.setString(2, taiKhoan.getMatKhau());
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();//Chuyển con trỏ về bản ghi đầu
             int countRow = resultSet.getInt(1);
             
-            if(countRow != 0){
+            if(countRow != 1){
                 throw new Exception("Tài Khoản Không Tồn Tại");
             }
             
             //Mở giao diện các theo quyền
-            PreparedStatement preparedStatement1;
-            return "Tạo Tài Khoản Thành Công";
+            PreparedStatement preparedStatement1 = connection.prepareStatement(quyenNguoiDung); 
+            preparedStatement1.setString(1, taiKhoan.getTaiKhoan());
+            preparedStatement1.setString(2, taiKhoan.getMatKhau());
+            
+            ResultSet resultSet1 = preparedStatement1.executeQuery();
+            resultSet1.next();
+            
+            int quyen = resultSet1.getInt(1);
+            
+            switch(quyen){
+                case 0:
+                    new TrangChuAdminUI().onStartGUI();
+                    break;
+            }
+            
+            return "Đăng Nhập Thành Công";
         }catch(Exception ex){
             return ex.toString();
         }

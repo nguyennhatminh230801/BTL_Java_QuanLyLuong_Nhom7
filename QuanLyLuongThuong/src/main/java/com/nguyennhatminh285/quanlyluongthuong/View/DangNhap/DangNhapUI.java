@@ -4,9 +4,14 @@
  */
 package com.nguyennhatminh285.quanlyluongthuong.View.DangNhap;
 
+import com.nguyennhatminh285.quanlyluongthuong.Controller.DangNhapController;
 import com.nguyennhatminh285.quanlyluongthuong.Model.TaiKhoan;
 import com.nguyennhatminh285.quanlyluongthuong.View.DangKy.DangKyUI;
-import java.util.Arrays;
+import com.nguyennhatminh285.quanlyluongthuong.util.XuLyFile;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,9 +22,16 @@ public class DangNhapUI extends javax.swing.JFrame {
     /**
      * Creates new form DangNhapUI
      */
-    public DangNhapUI() {
+    public DangNhapUI() throws IOException {
         initComponents();
         setLocationRelativeTo(null);
+        
+        TaiKhoan taikhoan2 = XuLyFile.layTaiKhoan();
+        
+        if(taikhoan2 != null){
+            txtTaiKhoan.setText(taikhoan2.getTaiKhoan());
+            txtPassword.setText(taikhoan2.getMatKhau());
+        }
     }
 
     /**
@@ -58,11 +70,6 @@ public class DangNhapUI extends javax.swing.JFrame {
 
         chkSavePassword.setFont(chkSavePassword.getFont().deriveFont(chkSavePassword.getFont().getSize()+3f));
         chkSavePassword.setText("Lưu mật khẩu");
-        chkSavePassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkSavePasswordActionPerformed(evt);
-            }
-        });
 
         btnDangNhap.setFont(btnDangNhap.getFont().deriveFont(btnDangNhap.getFont().getSize()+3f));
         btnDangNhap.setText("Đăng Nhập");
@@ -162,20 +169,33 @@ public class DangNhapUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void chkSavePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSavePasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chkSavePasswordActionPerformed
-
     private void btnHuyBoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyBoActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnHuyBoActionPerformed
 
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
-        String username = txtTaiKhoan.getText();
-        String password = Arrays.toString(txtPassword.getPassword());
-        TaiKhoan taiKhoan = new TaiKhoan(username, password);
-        
-        
+        try {
+            String username = txtTaiKhoan.getText();
+            String password = String.valueOf(txtPassword.getPassword());
+            
+            username= username.trim();
+            password= password.trim();
+            
+            if("".equals(username) || "".equals(password)){
+                throw new Exception("Không được để trống thông tin");
+            }
+            
+            TaiKhoan taiKhoan = new TaiKhoan(username, password);
+            JOptionPane.showMessageDialog(this.getContentPane(), DangNhapController.onLoginEvent(taiKhoan), "Thông Báo", JOptionPane.INFORMATION_MESSAGE);
+            
+            if(chkSavePassword.isSelected()){
+                XuLyFile.luuTaiKhoan(taiKhoan);
+            }  
+            
+            this.dispose();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this.getContentPane(), e.toString(), "Thông Báo", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
     private void linkDangKyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_linkDangKyMouseClicked
@@ -213,7 +233,11 @@ public class DangNhapUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DangNhapUI().setVisible(true);
+                try {
+                    new DangNhapUI().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(DangNhapUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

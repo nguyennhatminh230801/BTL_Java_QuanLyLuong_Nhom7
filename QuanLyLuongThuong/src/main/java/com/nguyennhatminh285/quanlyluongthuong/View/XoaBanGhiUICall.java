@@ -4,6 +4,7 @@
  */
 package com.nguyennhatminh285.quanlyluongthuong.View;
 
+import com.nguyennhatminh285.quanlyluongthuong.util.IOptionEvent;
 import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;

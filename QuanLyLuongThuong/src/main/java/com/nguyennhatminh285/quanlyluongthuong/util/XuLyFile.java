@@ -20,7 +20,7 @@ import java.io.ObjectOutputStream;
 public class XuLyFile {
     private static final String DUONG_DAN_FILE = "C:\\saveData.dat";
     
-    public void luuTaiKhoan(TaiKhoan taiKhoan) throws IOException{
+    public static void luuTaiKhoan(TaiKhoan taiKhoan) throws IOException{
         ObjectOutputStream objectOutputStream = null;
         
         try {
@@ -35,7 +35,7 @@ public class XuLyFile {
         }
     }
     
-    public TaiKhoan layTaiKhoan(TaiKhoan taiKhoan) throws IOException{
+    public static TaiKhoan layTaiKhoan() throws IOException{
         ObjectInputStream objectInputStream = null;
         
         try {

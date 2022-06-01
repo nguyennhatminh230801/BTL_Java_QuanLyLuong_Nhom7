@@ -5,7 +5,8 @@
 
 package com.nguyennhatminh285.quanlyluongthuong;
 
-import com.nguyennhatminh285.quanlyluongthuong.View.DangKy.DangKyUI;
+import com.nguyennhatminh285.quanlyluongthuong.View.DangNhap.DangNhapUI;
+import java.io.IOException;
 
 /**
  *
@@ -13,9 +14,7 @@ import com.nguyennhatminh285.quanlyluongthuong.View.DangKy.DangKyUI;
  */
 public class QuanLyLuongThuong {
 
-    public static void main(String[] args) {
-        new DangKyUI().onStartGUI();
-        
-        //KetNoiCSDL.getConnection();
+    public static void main(String[] args) throws IOException {
+        new DangNhapUI().onStartGUI();
     }
 }

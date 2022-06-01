@@ -162,9 +162,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="L&#x1b0;u m&#x1ead;t kh&#x1ea9;u"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkSavePasswordActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnDangNhap">
       <Properties>
