@@ -4,7 +4,6 @@
  */
 package com.nguyennhatminh285.quanlyluongthuong.util;
 
-import com.microsoft.sqlserver.jdbc.SQLServerDriver;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
@@ -12,28 +11,24 @@ import java.sql.DriverManager;
  *
  * @author Admin
  */
-public class KetNoiCSDL {
-    private static final String SERVER = "DESKTOP-GNLFKS4\\SQLEXPRESS";
-    private static final String DATABASE = "QLLuongThuong";
-    private static final String PORT = "1433";
-    
-    private static final String URL = "jdbc:sqlserver://" + SERVER
-            + ":" + PORT + ";"
-            + "databasename=" + DATABASE + ";"
-            + "integratedsecurity=true";
-    
+public class KetNoiCSDL { 
+    private static final String URL = "jdbc:mysql://localhost:3306/QuanLyLuongThuong";
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "admin";
     public static Connection getConnection() {
         try{
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            DriverManager.registerDriver(new SQLServerDriver());
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            if(connection == null){
+                throw new Exception();
+            }
+            
             System.out.println("Ket noi CSDL thanh cong");
-            return DriverManager.getConnection(URL);
+            return connection;
         }
         catch(Exception e){
             System.out.println("Ket noi CSDL that bai");
-            
+            return null;
         }
-        
-        return null;
     }
 }

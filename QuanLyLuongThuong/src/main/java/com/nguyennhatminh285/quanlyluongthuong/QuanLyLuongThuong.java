@@ -5,7 +5,7 @@
 
 package com.nguyennhatminh285.quanlyluongthuong;
 
-import com.nguyennhatminh285.quanlyluongthuong.View.BaoTriThongTinNhanVien.BaoTriThongTinNhanVienUI;
+import com.nguyennhatminh285.quanlyluongthuong.View.DangKy.DangKyUI;
 
 /**
  *
@@ -14,6 +14,8 @@ import com.nguyennhatminh285.quanlyluongthuong.View.BaoTriThongTinNhanVien.BaoTr
 public class QuanLyLuongThuong {
 
     public static void main(String[] args) {
-        new BaoTriThongTinNhanVienUI().onStartGUI();
+        new DangKyUI().onStartGUI();
+        
+        //KetNoiCSDL.getConnection();
     }
 }

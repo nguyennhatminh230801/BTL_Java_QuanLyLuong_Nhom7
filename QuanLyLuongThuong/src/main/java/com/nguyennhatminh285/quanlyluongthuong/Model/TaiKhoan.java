@@ -11,6 +11,15 @@ package com.nguyennhatminh285.quanlyluongthuong.Model;
 public class TaiKhoan {
     private String taiKhoan;
     private String matKhau;
+    private int quyen;
+
+    public int getQuyen() {
+        return quyen;
+    }
+
+    public void setQuyen(int quyen) {
+        this.quyen = quyen;
+    }
 
     public TaiKhoan() {
     }
@@ -18,6 +27,12 @@ public class TaiKhoan {
     public TaiKhoan(String taiKhoan, String matKhau) {
         this.taiKhoan = taiKhoan;
         this.matKhau = matKhau;
+    }
+    
+    
+    public TaiKhoan(String taiKhoan, String matKhau, int quyen) {
+        this(taiKhoan, matKhau);
+        this.quyen = quyen;
     }
 
     public String getTaiKhoan() {

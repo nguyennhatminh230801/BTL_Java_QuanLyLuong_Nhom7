@@ -4,7 +4,11 @@
  */
 package com.nguyennhatminh285.quanlyluongthuong.View.DangKy;
 
+import com.nguyennhatminh285.quanlyluongthuong.Controller.DangKyController;
+import com.nguyennhatminh285.quanlyluongthuong.Model.TaiKhoan;
 import com.nguyennhatminh285.quanlyluongthuong.View.DangNhap.DangNhapUI;
+import java.util.Arrays;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -202,17 +206,39 @@ public class DangKyUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHuyBoActionPerformed
 
     private void btnDangKyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangKyActionPerformed
-        // TODO add your handling code here:
+        try {
+           String taiKhoan = txtTaiKhoan.getText();
+           String matKhau = String.valueOf(txtPassword.getPassword());
+           String nhapLaiMatKhau = String.valueOf(txtRePassword.getPassword());
+           int quyen = cboNgheNghiep.getSelectedIndex() + 1;
+           
+           if("".equals(taiKhoan) || "".equals(matKhau)){
+               throw new Exception("Không được để trống mật khẩu");
+           }
+           
+           if(!matKhau.equals(nhapLaiMatKhau)){
+               throw new Exception("Mật Khẩu Không Trùng Nhau");
+           }
+           
+           JOptionPane.showMessageDialog(this.getContentPane(), DangKyController.onRegisterEvent(new TaiKhoan(taiKhoan, matKhau, quyen)), "Thông Báo", JOptionPane.OK_OPTION);
+           onClear();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this.getContentPane(), ex.getMessage(), "Thông Báo", JOptionPane.OK_OPTION);
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_btnDangKyActionPerformed
 
     private void btnXoaThongTinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaThongTinActionPerformed
+        onClear();
+    }//GEN-LAST:event_btnXoaThongTinActionPerformed
+    
+    private void onClear(){
         txtPassword.setText("");
         txtRePassword.setText("");
         txtTaiKhoan.setText("");
         cboNgheNghiep.setSelectedIndex(0);
         txtTaiKhoan.requestFocus();
-    }//GEN-LAST:event_btnXoaThongTinActionPerformed
-
+    }
     /**
      * @param args the command line arguments
      */
