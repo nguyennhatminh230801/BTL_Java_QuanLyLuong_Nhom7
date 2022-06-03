@@ -44,8 +44,9 @@ public class TuyChonUI {
                 iOptionEvent.onAcceptEvent();
                 break;
             case HUY_BO:
+            case JOptionPane.CLOSED_OPTION:
                 iOptionEvent.onCancelEvent();
-                break;
+                break;    
             default:
                 break;
         }

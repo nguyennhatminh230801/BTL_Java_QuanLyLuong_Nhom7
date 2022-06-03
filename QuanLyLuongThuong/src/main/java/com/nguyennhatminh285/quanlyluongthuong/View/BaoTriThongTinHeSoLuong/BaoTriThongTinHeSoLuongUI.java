@@ -4,17 +4,87 @@
  */
 package com.nguyennhatminh285.quanlyluongthuong.View.BaoTriThongTinHeSoLuong;
 
+import com.nguyennhatminh285.quanlyluongthuong.Controller.BaoTriThongTinHeSoLuongController;
+import com.nguyennhatminh285.quanlyluongthuong.Model.HeSoLuong;
+import com.nguyennhatminh285.quanlyluongthuong.View.TuyChonUI;
+import com.nguyennhatminh285.quanlyluongthuong.util.IOptionEvent;
+import com.nguyennhatminh285.quanlyluongthuong.util.IUpdateTableEvent;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 /**
  *
  * @author Admin
  */
 public class BaoTriThongTinHeSoLuongUI extends javax.swing.JFrame {
-
+    BaoTriThongTinHeSoLuongController baoTriThongTinHeSoLuongController;
     /**
      * Creates new form BaoTriThongTinHeSoLuongUI
      */
+    public void UpdateTable(){
+        ArrayList<HeSoLuong> heSoLuongs = baoTriThongTinHeSoLuongController.onQueryAllHeSoLuong();
+                
+        DefaultTableModel defaultTableModel = (DefaultTableModel)tblHeSoLuong.getModel();
+        
+        while(defaultTableModel.getRowCount() > 0){
+            defaultTableModel.removeRow(0);
+        }
+        
+        for(var heSoLuong: heSoLuongs){
+            defaultTableModel.addRow(heSoLuong.toObjectArrayData());
+        }
+    }
+    
+    public boolean validateData(){
+        String message = "";
+        int numErr = 0;
+        try {
+            if(txtTenHeSoLuong.getText().trim().equalsIgnoreCase("")){
+                message += "Tên Hệ Số Lương không được để trống!!\n";
+                numErr += 1;
+            }
+            
+            if(txtHeSoLuong.getText().trim().equalsIgnoreCase("")){
+                message += "Hệ Số Lương không được để trống\n";
+                numErr += 1;
+            }
+            
+            if(numErr > 0){
+                throw new Exception(message);
+            }
+            
+            try{
+                Double.parseDouble(txtHeSoLuong.getText());
+            }catch(Exception ex){
+                message += "Hệ Số Lương Phải Là Số Thực";
+                numErr += 1;
+            }
+            
+            if(numErr > 0){
+                throw new Exception(message);
+            }
+            
+            return true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(getContentPane(), message);
+        } 
+        return false;
+    }
     public BaoTriThongTinHeSoLuongUI() {
         initComponents();
+        setLocationRelativeTo(null);
+        txtTenHeSoLuong.requestFocus();
+        baoTriThongTinHeSoLuongController = new BaoTriThongTinHeSoLuongController();
+        UpdateTable();
+        
+        baoTriThongTinHeSoLuongController.setUpdateTableEvent(new IUpdateTableEvent() {
+            @Override
+            public void onUpdateDataOnTableEvent() {       
+                UpdateTable();
+            }
+        });
     }
 
     /**
@@ -28,17 +98,21 @@ public class BaoTriThongTinHeSoLuongUI extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtMaHeSoLuong = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtTenHeSoLuong = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        tblHeSoLuong = new javax.swing.JTable();
+        btnXoaThongTin = new javax.swing.JButton();
+        btnThemHeSoLuong = new javax.swing.JButton();
+        btnSuaHeSoLuong = new javax.swing.JButton();
+        btnXoaHeSoLuong = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        txtHeSoLuong = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Bảo Trì Thông Tin Hệ Số Lương");
+        setResizable(false);
 
         jLabel1.setFont(jLabel1.getFont().deriveFont(jLabel1.getFont().getStyle() | java.awt.Font.BOLD, jLabel1.getFont().getSize()+11));
         jLabel1.setText("Bảo Trì Thông Tin Hệ Số Lương");
@@ -46,46 +120,81 @@ public class BaoTriThongTinHeSoLuongUI extends javax.swing.JFrame {
         jLabel2.setFont(jLabel2.getFont().deriveFont(jLabel2.getFont().getSize()+3f));
         jLabel2.setText("Mã Hệ Số Lương");
 
-        jTextField1.setFont(jTextField1.getFont().deriveFont(jTextField1.getFont().getSize()+3f));
+        txtMaHeSoLuong.setFont(txtMaHeSoLuong.getFont().deriveFont(txtMaHeSoLuong.getFont().getSize()+3f));
+        txtMaHeSoLuong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtMaHeSoLuongMouseClicked(evt);
+            }
+        });
 
         jLabel3.setFont(jLabel3.getFont().deriveFont(jLabel3.getFont().getSize()+3f));
-        jLabel3.setText("Hệ Số Lương");
+        jLabel3.setText("Tên Hệ Số Lương");
 
-        jTextField2.setFont(jTextField2.getFont().deriveFont(jTextField2.getFont().getSize()+3f));
+        txtTenHeSoLuong.setFont(txtTenHeSoLuong.getFont().deriveFont(txtTenHeSoLuong.getFont().getSize()+3f));
 
-        jTable1.setFont(jTable1.getFont().deriveFont(jTable1.getFont().getSize()+3f));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblHeSoLuong.setFont(tblHeSoLuong.getFont().deriveFont(tblHeSoLuong.getFont().getSize()+3f));
+        tblHeSoLuong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Mã Hệ Số Lương", "Hệ Số Lương"
+                "Mã Hệ Số Lương", "Tên Hệ Số Lương", "Hệ Số Lương"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        tblHeSoLuong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblHeSoLuongMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblHeSoLuong);
 
-        jButton1.setFont(jButton1.getFont().deriveFont(jButton1.getFont().getSize()+3f));
-        jButton1.setText("Xóa Thông Tin");
+        btnXoaThongTin.setFont(btnXoaThongTin.getFont().deriveFont(btnXoaThongTin.getFont().getSize()+3f));
+        btnXoaThongTin.setText("Xóa Thông Tin");
+        btnXoaThongTin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaThongTinActionPerformed(evt);
+            }
+        });
 
-        jButton2.setFont(jButton2.getFont().deriveFont(jButton2.getFont().getSize()+3f));
-        jButton2.setText("Thêm Hệ Số Lương");
+        btnThemHeSoLuong.setFont(btnThemHeSoLuong.getFont().deriveFont(btnThemHeSoLuong.getFont().getSize()+3f));
+        btnThemHeSoLuong.setText("Thêm Hệ Số Lương");
+        btnThemHeSoLuong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemHeSoLuongActionPerformed(evt);
+            }
+        });
 
-        jButton3.setFont(jButton3.getFont().deriveFont(jButton3.getFont().getSize()+3f));
-        jButton3.setText("Sửa Hệ Số Lương");
+        btnSuaHeSoLuong.setFont(btnSuaHeSoLuong.getFont().deriveFont(btnSuaHeSoLuong.getFont().getSize()+3f));
+        btnSuaHeSoLuong.setText("Sửa Hệ Số Lương");
+        btnSuaHeSoLuong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaHeSoLuongActionPerformed(evt);
+            }
+        });
 
-        jButton4.setFont(jButton4.getFont().deriveFont(jButton4.getFont().getSize()+3f));
-        jButton4.setText("Xóa Hệ Số Lương");
+        btnXoaHeSoLuong.setFont(btnXoaHeSoLuong.getFont().deriveFont(btnXoaHeSoLuong.getFont().getSize()+3f));
+        btnXoaHeSoLuong.setText("Xóa Hệ Số Lương");
+        btnXoaHeSoLuong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaHeSoLuongActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(jLabel4.getFont().deriveFont(jLabel4.getFont().getSize()+3f));
+        jLabel4.setText("Hệ Số Lương");
+
+        txtHeSoLuong.setFont(txtHeSoLuong.getFont().deriveFont(txtHeSoLuong.getFont().getSize()+3f));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -101,23 +210,25 @@ public class BaoTriThongTinHeSoLuongUI extends javax.swing.JFrame {
                         .addGap(179, 179, 179)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel3))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
-                            .addComponent(jTextField2)))
+                            .addComponent(txtMaHeSoLuong, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
+                            .addComponent(txtTenHeSoLuong)
+                            .addComponent(txtHeSoLuong, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 737, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(89, 89, 89)
-                        .addComponent(jButton2)
+                        .addComponent(btnThemHeSoLuong)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3)
+                        .addComponent(btnSuaHeSoLuong)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton4)
+                        .addComponent(btnXoaHeSoLuong)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1)))
+                        .addComponent(btnXoaThongTin)))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -128,24 +239,119 @@ public class BaoTriThongTinHeSoLuongUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMaHeSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                    .addComponent(txtTenHeSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton1)
-                    .addComponent(jButton4))
+                    .addComponent(jLabel4)
+                    .addComponent(txtHeSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnThemHeSoLuong)
+                    .addComponent(btnSuaHeSoLuong)
+                    .addComponent(btnXoaThongTin)
+                    .addComponent(btnXoaHeSoLuong))
                 .addGap(27, 27, 27))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnThemHeSoLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemHeSoLuongActionPerformed
+        TuyChonUI tuyChonUI = new TuyChonUI();
+        tuyChonUI.setOnHandleOptionEvent(new IOptionEvent() {
+            @Override
+            public void onAcceptEvent() {
+                if(validateData()){
+                    baoTriThongTinHeSoLuongController.addHeSoLuong(new HeSoLuong(txtTenHeSoLuong.getText(), Float.parseFloat(txtHeSoLuong.getText())));
+                    JOptionPane.showMessageDialog(getContentPane(), "Thêm Hệ Số Lương Mới Thành Công");
+                    clearAllTextBox();
+                }
+            }
+
+            @Override
+            public void onCancelEvent() {
+                 clearAllTextBox();
+            }
+        });
+        
+        tuyChonUI.onCallGUI(getContentPane(), "Bạn có chắc chắn muốn thêm Hệ Số Lương Này?", "Thông Báo");
+    }//GEN-LAST:event_btnThemHeSoLuongActionPerformed
+
+    private void btnSuaHeSoLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaHeSoLuongActionPerformed
+        TuyChonUI tuyChonUI = new TuyChonUI();
+        tuyChonUI.setOnHandleOptionEvent(new IOptionEvent() {
+            @Override
+            public void onAcceptEvent() {
+                if(validateData()) {
+                    baoTriThongTinHeSoLuongController.modifyHeSoLuongByID(txtTenHeSoLuong.getText(),Float.parseFloat(txtHeSoLuong.getText()), Long.parseLong(txtMaHeSoLuong.getText()));
+                    JOptionPane.showMessageDialog(getContentPane(), "Sửa Hệ Số Lương Thành Công!!!");
+                    clearAllTextBox();
+                }
+            }
+
+            @Override
+            public void onCancelEvent() {
+                 clearAllTextBox();
+            }
+        });
+        
+        tuyChonUI.onCallGUI(getContentPane(), "Bạn có chắc chắn muốn sửa Hệ Số Lương Này?", "Thông Báo");
+    }//GEN-LAST:event_btnSuaHeSoLuongActionPerformed
+
+    private void btnXoaHeSoLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaHeSoLuongActionPerformed
+        TuyChonUI tuyChonUI = new TuyChonUI();
+        tuyChonUI.setOnHandleOptionEvent(new IOptionEvent() {
+            @Override
+            public void onAcceptEvent() {
+                if(validateData()){
+                    baoTriThongTinHeSoLuongController.deleteHeSoLuongByID(Long.parseLong(txtMaHeSoLuong.getText()));
+                    JOptionPane.showMessageDialog(getContentPane(), "Xóa Hệ Số Lương Này Thành Công");
+                    clearAllTextBox();
+                }
+            }
+
+            @Override
+            public void onCancelEvent() {
+                 clearAllTextBox();
+            }
+        });
+        
+        tuyChonUI.onCallGUI(getContentPane(), "Bạn có chắc chắn muốn xóa Hệ Số Lương Này?", "Thông Báo");
+    }//GEN-LAST:event_btnXoaHeSoLuongActionPerformed
+
+    private void btnXoaThongTinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaThongTinActionPerformed
+        clearAllTextBox();
+    }//GEN-LAST:event_btnXoaThongTinActionPerformed
+    
+    public void clearAllTextBox(){
+        txtMaHeSoLuong.setText("");
+        txtTenHeSoLuong.setText("");
+        txtHeSoLuong.setText("");
+        txtTenHeSoLuong.requestFocus();
+    }
+    private void tblHeSoLuongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHeSoLuongMouseClicked
+        int rowIndex = tblHeSoLuong.getSelectedRow();
+        TableModel model = tblHeSoLuong.getModel();
+        
+        String maHeSoLuong = model.getValueAt(rowIndex, 0).toString();
+        String tenHeSoLuong=  model.getValueAt(rowIndex, 1).toString();
+        String heSoLuong = model.getValueAt(rowIndex, 2).toString();
+        
+        txtMaHeSoLuong.setText(maHeSoLuong);
+        txtTenHeSoLuong.setText(tenHeSoLuong);
+        txtHeSoLuong.setText(heSoLuong);
+    }//GEN-LAST:event_tblHeSoLuongMouseClicked
+
+    private void txtMaHeSoLuongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtMaHeSoLuongMouseClicked
+        JOptionPane.showMessageDialog(getContentPane(), "Mã Hệ Số Lương được tự động sinh\nBạn không được phép sửa mã!!!");
+        txtTenHeSoLuong.requestFocus();
+    }//GEN-LAST:event_txtMaHeSoLuongMouseClicked
 
     public void onStartGUI() {
         /* Set the Nimbus look and feel */
@@ -180,16 +386,18 @@ public class BaoTriThongTinHeSoLuongUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnSuaHeSoLuong;
+    private javax.swing.JButton btnThemHeSoLuong;
+    private javax.swing.JButton btnXoaHeSoLuong;
+    private javax.swing.JButton btnXoaThongTin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTable tblHeSoLuong;
+    private javax.swing.JTextField txtHeSoLuong;
+    private javax.swing.JTextField txtMaHeSoLuong;
+    private javax.swing.JTextField txtTenHeSoLuong;
     // End of variables declaration//GEN-END:variables
 }

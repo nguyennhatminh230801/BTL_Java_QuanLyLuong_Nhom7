@@ -4,11 +4,13 @@
  */
 package com.nguyennhatminh285.quanlyluongthuong.Model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Admin
  */
-public class TaiKhoan {
+public class TaiKhoan extends Model implements Serializable{
     private String taiKhoan;
     private String matKhau;
     private int quyen;
@@ -49,6 +51,15 @@ public class TaiKhoan {
 
     public void setMatKhau(String matKhau) {
         this.matKhau = matKhau;
+    }
+
+    @Override
+    public Object[] toObjectArrayData() {
+        Object[] answer = new Object[3];
+        answer[0] = taiKhoan;
+        answer[1] = matKhau;
+        answer[2] = quyen;
+        return answer;
     }
     
     

@@ -98,9 +98,6 @@ create table CHAMCONG_HOCPHAN(
 alter table NHANVIEN add MATAIKHOAN bigint after MAHESOLUONG
 alter table NHANVIEN add constraint FK_MATK foreign key(MATAIKHOAN) references TAIKHOAN(MATAIKHOAN)
 
-insert into TAIKHOAN(TAIKHOAN, MATKHAU, QUYEN) values('minh', 'minh', 1)
-insert into NHANVIEN(TenNhanVien, GioiTinh, NgaySinh, DiaChi, ChucVu, TrinhDo, MaTaiKhoan) 
-values('Nhật Minh', 0, '2001-8-23', 'Thanh Hóa', 'Giảng Viên', 'Thạc Sĩ', 6)
-select TenNhanVien, GioiTinh, NgaySinh, DiaChi, ChucVu, TrinhDo from NhanVien
-where MaTaiKhoan = 6
-select * from TaiKhoan
+insert into HeSoLuong(TenHeSoLuong, HeSoLuong) values('Hệ Số Lương 1', 3.6);
+delete from HeSoLuong where MaHeSoLuong = 1
+select * from HeSoLuong;
