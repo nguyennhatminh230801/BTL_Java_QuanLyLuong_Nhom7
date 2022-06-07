@@ -4,7 +4,7 @@
  */
 package com.nguyennhatminh285.quanlyluongthuong.Controller;
 
-import com.nguyennhatminh285.quanlyluongthuong.Model.HeSoLuong;
+import com.nguyennhatminh285.quanlyluongthuong.Model.PhuCap;
 import com.nguyennhatminh285.quanlyluongthuong.util.IUpdateTableEvent;
 import com.nguyennhatminh285.quanlyluongthuong.util.KetNoiCSDL;
 import java.sql.Connection;
@@ -17,35 +17,33 @@ import java.util.ArrayList;
  *
  * @author Admin
  */
-public class BaoTriThongTinHeSoLuongController {
-    private static IUpdateTableEvent iUpdateTableEvent;
-    private static final String SELECT_ALL_HESOLUONG = "select * from HeSoLuong";
-    private static final String INSERT_HESOLUONG = "insert into HeSoLuong(TenHeSoLuong, HeSoLuong) values(?, ?);";
-    private static final String UPDATE_HESOLUONG = "update HeSoLuong set TenHeSoLuong = ?, HeSoLuong = ? "
-            + "where MaHeSoLuong = ?";
-    private static final String DELETE_HESOLUONG = "delete from HeSoLuong where MaHeSoLuong = ?";
+public class BaoTriThongTinPhuCapController {
+    private static final String QUERY_ALL_PHUCAP = "select * from PHUCAP";
+    private static final String INSERT_NEW_PHUCAP = "insert into PHUCAP(TENPHUCAP, TIENPHUCAP) values(?,?)";
+    private static final String UPDATE_PHUCAP = "update PHUCAP set TENPHUCAP = ?, TIENPHUCAP = ? where MAPHUCAP = ?";
+    private static final String DELETE_PHUCAP = "delete from PHUCAP where MAPHUCAP = ?";
+    private IUpdateTableEvent iUpdateTableEvent;
+    
     public void setUpdateTableEvent(IUpdateTableEvent iUpdateTableEvent) {
         this.iUpdateTableEvent = iUpdateTableEvent;
     }
     
-    public ArrayList<HeSoLuong> onQueryAllHeSoLuong() throws SQLException{
+    public ArrayList<PhuCap> onQueryAllPhuCap() throws SQLException{
         Connection connection = null;
         try {
             connection = KetNoiCSDL.getConnection(); 
-            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_HESOLUONG);
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERY_ALL_PHUCAP);
             ResultSet resultSet = preparedStatement.executeQuery();
             
-            ArrayList<HeSoLuong> answer= new ArrayList<>();
+            ArrayList<PhuCap> answer= new ArrayList<>();
             
             while(resultSet.next()){
-                HeSoLuong heSoLuong = new HeSoLuong(
-                     resultSet.getLong(1),
-                     resultSet.getString(2),
-                     resultSet.getFloat(3)
-                );
-                answer.add(heSoLuong);
+               PhuCap phuCap = new PhuCap();
+               phuCap.setMaPhuCap(resultSet.getLong(1));
+               phuCap.setTenPhuCap(resultSet.getString(2));
+               phuCap.setTienPhuCap(resultSet.getLong(3));
+               answer.add(phuCap);
             }
-        
             return answer;
         } catch (Exception e) {
             e.printStackTrace();
@@ -58,58 +56,61 @@ public class BaoTriThongTinHeSoLuongController {
         }
     }
     
-    public void addHeSoLuong(HeSoLuong heSoLuong) throws SQLException{
+    public void addNewPhuCap(PhuCap phuCap) throws SQLException{
         Connection connection = null;
         try {
             connection = KetNoiCSDL.getConnection(); 
-            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_HESOLUONG);
-            preparedStatement.setString(1, heSoLuong.getTenHeSoLuong());
-            preparedStatement.setFloat(2, heSoLuong.getHeSoLuong());
-            int answer = preparedStatement.executeUpdate();
+            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_NEW_PHUCAP);
+            preparedStatement.setString(1, phuCap.getTenPhuCap());
+            preparedStatement.setLong(2, phuCap.getTienPhuCap());
+            preparedStatement.executeUpdate();
             
             iUpdateTableEvent.onUpdateDataOnTableEvent();
+            
         } catch (Exception e) {
             e.printStackTrace();
-        }finally{
-            if(connection != null){
-                connection.close();
-            }
-        }
-    }
-   
-    public void modifyHeSoLuongByID(String tenHeSoLuong, float heSoLuong, long ID) throws SQLException{
-        Connection connection = null;
-        try {
-            connection = KetNoiCSDL.getConnection(); 
-            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_HESOLUONG);
-            preparedStatement.setString(1, tenHeSoLuong);
-            preparedStatement.setFloat(2, heSoLuong);
-            preparedStatement.setLong(3, ID);
-            
-            int answer = preparedStatement.executeUpdate();
-            
-            iUpdateTableEvent.onUpdateDataOnTableEvent();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }finally{
+        } 
+        finally{
             if(connection != null){
                 connection.close();
             }
         }
     }
     
-    public void deleteHeSoLuongByID(long ID) throws SQLException{
+    public void updatePhuCapByID(PhuCap phuCap) throws SQLException{
         Connection connection = null;
         try {
             connection = KetNoiCSDL.getConnection(); 
-            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_HESOLUONG);
-            preparedStatement.setLong(1, ID);
-            int answer = preparedStatement.executeUpdate();
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_PHUCAP);
+            preparedStatement.setString(1, phuCap.getTenPhuCap());
+            preparedStatement.setLong(2, phuCap.getTienPhuCap());
+            preparedStatement.setLong(3, phuCap.getMaPhuCap());
+            preparedStatement.executeUpdate();
             
             iUpdateTableEvent.onUpdateDataOnTableEvent();
         } catch (Exception e) {
             e.printStackTrace();
-        }finally{
+        } 
+        finally{
+            if(connection != null){
+                connection.close();
+            }
+        }
+    }
+    
+    public void deletePhuCapByID(long ID) throws SQLException{
+        Connection connection = null;
+        try {
+            connection = KetNoiCSDL.getConnection(); 
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_PHUCAP);
+            preparedStatement.setLong(1, ID);
+            preparedStatement.executeUpdate();
+            
+            iUpdateTableEvent.onUpdateDataOnTableEvent();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
+        finally{
             if(connection != null){
                 connection.close();
             }

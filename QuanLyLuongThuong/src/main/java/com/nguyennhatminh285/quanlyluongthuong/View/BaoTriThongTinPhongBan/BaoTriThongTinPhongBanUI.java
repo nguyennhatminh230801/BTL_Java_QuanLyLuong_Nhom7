@@ -5,20 +5,59 @@
  */
 package com.nguyennhatminh285.quanlyluongthuong.View.BaoTriThongTinPhongBan;
 
+import com.nguyennhatminh285.quanlyluongthuong.Controller.BaoTriThongTinPhongBanController;
+import com.nguyennhatminh285.quanlyluongthuong.Model.PhongBan;
+import com.nguyennhatminh285.quanlyluongthuong.View.TuyChonUI;
+import com.nguyennhatminh285.quanlyluongthuong.util.IOptionEvent;
+import com.nguyennhatminh285.quanlyluongthuong.util.IUpdateTableEvent;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 /**
  *
  * @author IT Supporter
  */
 public class BaoTriThongTinPhongBanUI extends javax.swing.JFrame {
-
+    private BaoTriThongTinPhongBanController baoTriThongTinPhongBanController;
     /**
      * Creates new form BaoTriThongTinPhongBanUI
      */
-    public BaoTriThongTinPhongBanUI() {
+    public BaoTriThongTinPhongBanUI() throws SQLException {
         initComponents();
         setLocationRelativeTo(null);
+        txtTenPhong.requestFocus();
+        
+        baoTriThongTinPhongBanController = new BaoTriThongTinPhongBanController();
+        UpdateTable();
+        baoTriThongTinPhongBanController.setUpdateTableEvent(new IUpdateTableEvent() {
+            @Override
+            public void onUpdateDataOnTableEvent() {       
+                try {
+                    UpdateTable();
+                } catch (SQLException ex) {
+                    Logger.getLogger(BaoTriThongTinPhongBanUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } 
+        });
     }
-
+    private void UpdateTable() throws SQLException {
+        ArrayList<PhongBan> phongBans = baoTriThongTinPhongBanController.onQueryAllPhongBan();
+        
+        DefaultTableModel defaultTableModel = (DefaultTableModel)tblPhongBan.getModel();
+        
+        while(defaultTableModel.getRowCount() > 0){
+            defaultTableModel.removeRow(0);
+        }
+        
+        for(var phongBan: phongBans){
+            defaultTableModel.addRow(phongBan.toObjectArrayData());
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -52,6 +91,11 @@ public class BaoTriThongTinPhongBanUI extends javax.swing.JFrame {
         jLabel2.setText("Mã Phòng");
 
         txtMaPhong.setFont(txtMaPhong.getFont().deriveFont(txtMaPhong.getFont().getSize()+4f));
+        txtMaPhong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtMaPhongMouseClicked(evt);
+            }
+        });
 
         txtTenPhong.setFont(txtTenPhong.getFont().deriveFont(txtTenPhong.getFont().getSize()+4f));
 
@@ -83,19 +127,44 @@ public class BaoTriThongTinPhongBanUI extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        tblPhongBan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPhongBanMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblPhongBan);
 
         btnThemPhongBan.setFont(btnThemPhongBan.getFont().deriveFont(btnThemPhongBan.getFont().getSize()+4f));
         btnThemPhongBan.setText("Thêm Phòng Ban");
+        btnThemPhongBan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemPhongBanActionPerformed(evt);
+            }
+        });
 
         btnSuaPhongBan.setFont(btnSuaPhongBan.getFont().deriveFont(btnSuaPhongBan.getFont().getSize()+4f));
         btnSuaPhongBan.setText("Sửa Phòng Ban");
+        btnSuaPhongBan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaPhongBanActionPerformed(evt);
+            }
+        });
 
         btnXoaPhongBan.setFont(btnXoaPhongBan.getFont().deriveFont(btnXoaPhongBan.getFont().getSize()+4f));
         btnXoaPhongBan.setText("Xóa Phòng Ban");
+        btnXoaPhongBan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaPhongBanActionPerformed(evt);
+            }
+        });
 
         btnXoaThongTin.setFont(btnXoaThongTin.getFont().deriveFont(btnXoaThongTin.getFont().getSize()+4f));
         btnXoaThongTin.setText("Xóa Thông Tin");
+        btnXoaThongTin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaThongTinActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -167,7 +236,145 @@ public class BaoTriThongTinPhongBanUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnThemPhongBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemPhongBanActionPerformed
+        TuyChonUI tuyChonUI = new TuyChonUI();
+        tuyChonUI.setOnHandleOptionEvent(new IOptionEvent() {
+            @Override
+            public void onAcceptEvent() {
+                if(validateData()){
+                    PhongBan phongBan = new PhongBan();
+                    phongBan.setTenPhong(txtTenPhong.getText());
+                    phongBan.setTenTruongPhong(txtTenTruongPhong.getText());
+                                
+                    try {
+                        baoTriThongTinPhongBanController.addNewPhongBan(phongBan);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(BaoTriThongTinPhongBanUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    clearAllTextBox();
+                    JOptionPane.showMessageDialog(getContentPane(), "Thêm mới Phòng Ban thành công!!");
+                }
+            }
+
+            @Override
+            public void onCancelEvent() {
+                clearAllTextBox();
+            }
+        });
+        
+        tuyChonUI.onCallGUI(getContentPane(), "Bạn có chắc chắn muốn thêm Phòng Ban này không ?", "Thông Báo");
+    }//GEN-LAST:event_btnThemPhongBanActionPerformed
     
+    
+    private void btnSuaPhongBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaPhongBanActionPerformed
+        TuyChonUI tuyChonUI = new TuyChonUI();
+        tuyChonUI.setOnHandleOptionEvent(new IOptionEvent() {
+            @Override
+            public void onAcceptEvent() {
+                if(validateData()){
+                    if(txtMaPhong.getText().equals("")){
+                        JOptionPane.showMessageDialog(getContentPane(), "Bạn chưa chọn Phòng Ban cần xóa!!");
+                        return;
+                    }
+                    
+                    PhongBan phongBan = new PhongBan();
+                    phongBan.setMaPhong(Long.parseLong(txtMaPhong.getText()));
+                    phongBan.setTenPhong(txtTenPhong.getText());
+                    phongBan.setTenTruongPhong(txtTenTruongPhong.getText());
+                    
+                    try {
+                        baoTriThongTinPhongBanController.updatePhongBanByID(phongBan);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(BaoTriThongTinPhongBanUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    clearAllTextBox();
+                    JOptionPane.showMessageDialog(getContentPane(), "Sửa Phòng Ban thành công!!");
+                }
+            }
+
+            @Override
+            public void onCancelEvent() {
+                clearAllTextBox();
+            }
+        });
+        
+        tuyChonUI.onCallGUI(getContentPane(), "Bạn có chắc chắn muốn sửa phòng ban này không ?", "Thông Báo");
+    }//GEN-LAST:event_btnSuaPhongBanActionPerformed
+
+    private void btnXoaPhongBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaPhongBanActionPerformed
+        TuyChonUI tuyChonUI = new TuyChonUI();
+        tuyChonUI.setOnHandleOptionEvent(new IOptionEvent() {
+            @Override
+            public void onAcceptEvent() {
+                if(validateData()) {
+                    if(txtMaPhong.getText().equals("")){
+                        JOptionPane.showMessageDialog(getContentPane(), "Bạn chưa chọn Phòng Ban cần xóa!!");
+                        return;
+                    }
+                    try {
+                        baoTriThongTinPhongBanController.deletePhongBanByID(Long.parseLong(txtMaPhong.getText()));
+                    } catch (SQLException ex) {
+                        Logger.getLogger(BaoTriThongTinPhongBanUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    clearAllTextBox();
+                    JOptionPane.showMessageDialog(getContentPane(), "Xóa phòng ban thành công!!");
+                }
+            }
+
+            @Override
+            public void onCancelEvent() {
+                clearAllTextBox();
+            }
+        });
+        
+        tuyChonUI.onCallGUI(getContentPane(), "Bạn có chắc chắn muốn xóa Phòng Ban này không ?", "Thông Báo");
+    }//GEN-LAST:event_btnXoaPhongBanActionPerformed
+
+    private void btnXoaThongTinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaThongTinActionPerformed
+        TuyChonUI tuyChonUI = new TuyChonUI();
+        tuyChonUI.setOnHandleOptionEvent(new IOptionEvent() {
+            @Override
+            public void onAcceptEvent() {
+                if(validateData()){
+                    
+                    clearAllTextBox();
+                    JOptionPane.showMessageDialog(getContentPane(), "Xóa thông tin thành công!!");
+                }
+                
+            }
+
+            @Override
+            public void onCancelEvent() {
+                clearAllTextBox();
+            }
+        });
+        
+        tuyChonUI.onCallGUI(getContentPane(), "Bạn có chắc chắn muốn xóa thông tin này không ?", "Thông Báo");
+    }//GEN-LAST:event_btnXoaThongTinActionPerformed
+
+    private void txtMaPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtMaPhongMouseClicked
+        JOptionPane.showMessageDialog(getContentPane(), "Mã Phòng được tự động sinh\nBạn không được phép sửa mã!!!");
+        txtTenPhong.requestFocus();
+    }//GEN-LAST:event_txtMaPhongMouseClicked
+
+    private void tblPhongBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPhongBanMouseClicked
+        int rowIndex = tblPhongBan.getSelectedRow();
+        TableModel model = tblPhongBan.getModel();
+        
+        String maPhong = model.getValueAt(rowIndex, 0).toString();
+        String tenPhong=  model.getValueAt(rowIndex, 1).toString();
+        String tenTruongPhong = model.getValueAt(rowIndex, 2).toString();
+        
+        txtMaPhong.setText(maPhong);
+        txtTenPhong.setText(tenPhong);
+        txtTenTruongPhong.setText(tenTruongPhong);
+    }//GEN-LAST:event_tblPhongBanMouseClicked
+
+    public void clearAllTextBox(){
+        txtMaPhong.setText("");
+        txtTenPhong.setText("");
+        txtTenTruongPhong.setText("");
+    }
     public void onStartGUI() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -195,11 +402,40 @@ public class BaoTriThongTinPhongBanUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BaoTriThongTinPhongBanUI().setVisible(true);
+                try {
+                    new BaoTriThongTinPhongBanUI().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(BaoTriThongTinPhongBanUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
-
+    
+    private boolean validateData() {
+        String message = "";
+        int numErr = 0;
+        try {
+            if(txtTenPhong.getText().trim().equalsIgnoreCase("")){
+                message += "Tên Phòng không được để trống!!\n";
+                numErr += 1;
+            }
+            
+            if(txtTenTruongPhong.getText().trim().equalsIgnoreCase("")){
+                message += "Tên Trưởng Phòng không được để trống\n";
+                numErr += 1;
+            }
+            
+            if(numErr > 0){
+                throw new Exception(message);
+            }
+            
+            return true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(getContentPane(), message);
+        } 
+        return false;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSuaPhongBan;
     private javax.swing.JButton btnThemPhongBan;

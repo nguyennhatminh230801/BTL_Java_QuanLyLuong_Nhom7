@@ -8,7 +8,8 @@ package com.nguyennhatminh285.quanlyluongthuong.Model;
  *
  * @author Admin
  */
-public class HocPhan {
+public class HocPhan extends BaseModel{
+    private long maHocPhan;
     private String tenHocPhan;
     private int soTinChi;
 
@@ -35,6 +36,13 @@ public class HocPhan {
     public void setSoTinChi(int soTinChi) {
         this.soTinChi = soTinChi;
     }
-    
-    
+
+    @Override
+    public Object[] toObjectArrayData() {
+        Object[] objects = new Object[3];
+        objects[0] = maHocPhan;
+        objects[1] = tenHocPhan;
+        objects[2] = soTinChi;
+        return objects;
+    }
 }

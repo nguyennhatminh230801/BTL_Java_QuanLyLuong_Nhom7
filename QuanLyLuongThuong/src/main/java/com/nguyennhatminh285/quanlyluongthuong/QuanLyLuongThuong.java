@@ -5,10 +5,9 @@
 
 package com.nguyennhatminh285.quanlyluongthuong;
 
-import com.nguyennhatminh285.quanlyluongthuong.View.BaoTriThongTinHeSoLuong.BaoTriThongTinHeSoLuongUI;
-import com.nguyennhatminh285.quanlyluongthuong.View.DangNhap.DangNhapUI;
-import com.nguyennhatminh285.quanlyluongthuong.View.XemThongTinCaNhan.XemThongTinCaNhanUI;
+import com.nguyennhatminh285.quanlyluongthuong.View.BaoTriThongTinTienThuong.BaoTriThongTinTienThuongUI;
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  *
@@ -16,8 +15,9 @@ import java.io.IOException;
  */
 public class QuanLyLuongThuong {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, SQLException {
         //new DangNhapUI().onStartGUI();
-        new BaoTriThongTinHeSoLuongUI().onStartGUI();
+        //new BaoTriThongTinPhuCapUI().onStartGUI();
+        new BaoTriThongTinTienThuongUI().onStartGUI();
     }
 }

@@ -4,7 +4,7 @@
  */
 package com.nguyennhatminh285.quanlyluongthuong.Controller;
 
-import com.nguyennhatminh285.quanlyluongthuong.Model.HeSoLuong;
+import com.nguyennhatminh285.quanlyluongthuong.Model.Thuong;
 import com.nguyennhatminh285.quanlyluongthuong.util.IUpdateTableEvent;
 import com.nguyennhatminh285.quanlyluongthuong.util.KetNoiCSDL;
 import java.sql.Connection;
@@ -17,35 +17,33 @@ import java.util.ArrayList;
  *
  * @author Admin
  */
-public class BaoTriThongTinHeSoLuongController {
-    private static IUpdateTableEvent iUpdateTableEvent;
-    private static final String SELECT_ALL_HESOLUONG = "select * from HeSoLuong";
-    private static final String INSERT_HESOLUONG = "insert into HeSoLuong(TenHeSoLuong, HeSoLuong) values(?, ?);";
-    private static final String UPDATE_HESOLUONG = "update HeSoLuong set TenHeSoLuong = ?, HeSoLuong = ? "
-            + "where MaHeSoLuong = ?";
-    private static final String DELETE_HESOLUONG = "delete from HeSoLuong where MaHeSoLuong = ?";
+public class BaoTriThongTinTienThuongController {
+    private static final String QUERY_ALL_TIENTHUONG = "select * from THUONG";
+    private static final String INSERT_NEW_TIENTHUONG = "insert into THUONG(TENTHUONG, TIENTHUONG) values(?,?)";
+    private static final String UPDATE_TIENTHUONG = "update THUONG set TENTHUONG = ?, TIENTHUONG = ? where MATHUONG = ?";
+    private static final String DELETE_TIENTHUONG = "delete from THUONG where MATHUONG = ?";
+    private IUpdateTableEvent iUpdateTableEvent;
+    
     public void setUpdateTableEvent(IUpdateTableEvent iUpdateTableEvent) {
         this.iUpdateTableEvent = iUpdateTableEvent;
     }
     
-    public ArrayList<HeSoLuong> onQueryAllHeSoLuong() throws SQLException{
+    public ArrayList<Thuong> onQueryAllTienThuong() throws SQLException{
         Connection connection = null;
         try {
             connection = KetNoiCSDL.getConnection(); 
-            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_HESOLUONG);
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERY_ALL_TIENTHUONG);
             ResultSet resultSet = preparedStatement.executeQuery();
             
-            ArrayList<HeSoLuong> answer= new ArrayList<>();
+            ArrayList<Thuong> answer= new ArrayList<>();
             
             while(resultSet.next()){
-                HeSoLuong heSoLuong = new HeSoLuong(
-                     resultSet.getLong(1),
-                     resultSet.getString(2),
-                     resultSet.getFloat(3)
-                );
-                answer.add(heSoLuong);
+               Thuong thuong = new Thuong();
+               thuong.setMaThuong(resultSet.getLong(1));
+               thuong.setTenThuong(resultSet.getString(2));
+               thuong.setTienThuong(resultSet.getFloat(3));
+               answer.add(thuong);
             }
-        
             return answer;
         } catch (Exception e) {
             e.printStackTrace();
@@ -58,58 +56,61 @@ public class BaoTriThongTinHeSoLuongController {
         }
     }
     
-    public void addHeSoLuong(HeSoLuong heSoLuong) throws SQLException{
+    public void addNewTienThuong(Thuong thuong) throws SQLException{
         Connection connection = null;
         try {
             connection = KetNoiCSDL.getConnection(); 
-            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_HESOLUONG);
-            preparedStatement.setString(1, heSoLuong.getTenHeSoLuong());
-            preparedStatement.setFloat(2, heSoLuong.getHeSoLuong());
-            int answer = preparedStatement.executeUpdate();
+            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_NEW_TIENTHUONG);
+            preparedStatement.setString(1, thuong.getTenThuong());
+            preparedStatement.setFloat(2, thuong.getTienThuong());
+            preparedStatement.executeUpdate();
             
             iUpdateTableEvent.onUpdateDataOnTableEvent();
+            
         } catch (Exception e) {
             e.printStackTrace();
-        }finally{
-            if(connection != null){
-                connection.close();
-            }
-        }
-    }
-   
-    public void modifyHeSoLuongByID(String tenHeSoLuong, float heSoLuong, long ID) throws SQLException{
-        Connection connection = null;
-        try {
-            connection = KetNoiCSDL.getConnection(); 
-            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_HESOLUONG);
-            preparedStatement.setString(1, tenHeSoLuong);
-            preparedStatement.setFloat(2, heSoLuong);
-            preparedStatement.setLong(3, ID);
-            
-            int answer = preparedStatement.executeUpdate();
-            
-            iUpdateTableEvent.onUpdateDataOnTableEvent();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }finally{
+        } 
+        finally{
             if(connection != null){
                 connection.close();
             }
         }
     }
     
-    public void deleteHeSoLuongByID(long ID) throws SQLException{
+    public void updateTienThuongByID(Thuong thuong) throws SQLException{
         Connection connection = null;
         try {
             connection = KetNoiCSDL.getConnection(); 
-            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_HESOLUONG);
-            preparedStatement.setLong(1, ID);
-            int answer = preparedStatement.executeUpdate();
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_TIENTHUONG);
+            preparedStatement.setString(1, thuong.getTenThuong());
+            preparedStatement.setFloat(2, thuong.getTienThuong());
+            preparedStatement.setLong(3, thuong.getMaThuong());
+            preparedStatement.executeUpdate();
             
             iUpdateTableEvent.onUpdateDataOnTableEvent();
         } catch (Exception e) {
             e.printStackTrace();
-        }finally{
+        } 
+        finally{
+            if(connection != null){
+                connection.close();
+            }
+        }
+    }
+    
+    public void deleteTienThuongByID(long ID) throws SQLException{
+        Connection connection = null;
+        try {
+            connection = KetNoiCSDL.getConnection(); 
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_TIENTHUONG);
+            preparedStatement.setLong(1, ID);
+            preparedStatement.executeUpdate();
+            
+            iUpdateTableEvent.onUpdateDataOnTableEvent();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
+        finally{
             if(connection != null){
                 connection.close();
             }

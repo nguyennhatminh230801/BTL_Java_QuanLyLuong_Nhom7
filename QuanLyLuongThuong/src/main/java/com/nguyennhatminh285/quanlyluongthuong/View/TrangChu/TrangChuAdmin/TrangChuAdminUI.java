@@ -13,6 +13,9 @@ import com.nguyennhatminh285.quanlyluongthuong.View.TuyChonUI;
 import com.nguyennhatminh285.quanlyluongthuong.util.IOptionEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 
 /**
@@ -192,7 +195,11 @@ public class TrangChuAdminUI extends javax.swing.JFrame implements ActionListene
         JButton jButton = (JButton) e.getSource();
         
         if(jButton.equals(btnHeSoLuong)){
-            new BaoTriThongTinHeSoLuongUI().onStartGUI();
+            try {
+                new BaoTriThongTinHeSoLuongUI().onStartGUI();
+            } catch (SQLException ex) {
+                Logger.getLogger(TrangChuAdminUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
             this.dispose();
             return;
         }
@@ -208,13 +215,21 @@ public class TrangChuAdminUI extends javax.swing.JFrame implements ActionListene
         }
         
         if(jButton.equals(btnPhongBan)){
-            new BaoTriThongTinPhongBanUI().onStartGUI();
+            try {
+                new BaoTriThongTinPhongBanUI().onStartGUI();
+            } catch (SQLException ex) {
+                Logger.getLogger(TrangChuAdminUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
             this.dispose();
             return;
         }
         
         if(jButton.equals(btnPhuCap)){
-            new BaoTriThongTinPhuCapUI().onStartGUI();
+            try {
+                new BaoTriThongTinPhuCapUI().onStartGUI();
+            } catch (SQLException ex) {
+                Logger.getLogger(TrangChuAdminUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
             this.dispose();
             return;
         }
@@ -224,7 +239,11 @@ public class TrangChuAdminUI extends javax.swing.JFrame implements ActionListene
         }
         
         if(jButton.equals(btnTienThuong)){
-            new BaoTriThongTinTienThuongUI().onStartGUI();
+            try {
+                new BaoTriThongTinTienThuongUI().onStartGUI();
+            } catch (SQLException ex) {
+                Logger.getLogger(TrangChuAdminUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
             this.dispose();
             return;
         }

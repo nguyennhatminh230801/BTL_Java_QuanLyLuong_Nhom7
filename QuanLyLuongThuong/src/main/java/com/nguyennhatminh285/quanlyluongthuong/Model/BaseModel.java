@@ -8,6 +8,6 @@ package com.nguyennhatminh285.quanlyluongthuong.Model;
  *
  * @author Admin
  */
-public abstract class Model {
+public abstract class BaseModel {
     public abstract Object[] toObjectArrayData(); 
 }

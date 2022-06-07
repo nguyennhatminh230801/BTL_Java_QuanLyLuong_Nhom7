@@ -129,6 +129,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Th&#xea;m Ph&#x1ee5; C&#x1ea5;p"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThemPhuCapActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>
@@ -175,6 +178,9 @@
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblPhuCapMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -187,6 +193,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="X&#xf3;a Ph&#x1ee5; C&#x1ea5;p"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXoaPhuCapActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnSuaPhuCap">
       <Properties>
@@ -197,6 +206,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="S&#x1eed;a Ph&#x1ee5; C&#x1ea5;p"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSuaPhuCapActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnXoaThongTin">
       <Properties>
@@ -207,6 +219,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="X&#xf3;a Th&#xf4;ng Tin"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXoaThongTinActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
@@ -220,6 +235,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtMaPhuCap">
       <Properties>
+        <Property name="editable" type="boolean" value="false"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
             <Font component="txtMaPhuCap" property="font" relativeSize="true" size="3"/>

@@ -10,7 +10,7 @@ import java.io.Serializable;
  *
  * @author Admin
  */
-public class TaiKhoan extends Model implements Serializable{
+public class TaiKhoan extends BaseModel implements Serializable{
     private String taiKhoan;
     private String matKhau;
     private int quyen;

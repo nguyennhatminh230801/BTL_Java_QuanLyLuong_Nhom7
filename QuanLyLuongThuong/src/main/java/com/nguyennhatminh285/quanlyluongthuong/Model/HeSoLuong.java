@@ -8,7 +8,7 @@ package com.nguyennhatminh285.quanlyluongthuong.Model;
  *
  * @author Admin
  */
-public class HeSoLuong extends Model{
+public class HeSoLuong extends BaseModel{
     private long maHeSoLuong;
     private String tenHeSoLuong;
     private float heSoLuong;

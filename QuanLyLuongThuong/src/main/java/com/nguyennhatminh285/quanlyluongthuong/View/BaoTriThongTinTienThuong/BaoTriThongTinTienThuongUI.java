@@ -5,19 +5,94 @@
  */
 package com.nguyennhatminh285.quanlyluongthuong.View.BaoTriThongTinTienThuong;
 
-/**
- *
- * @author IT Supporter
- */
-public class BaoTriThongTinTienThuongUI extends javax.swing.JFrame {
+import com.nguyennhatminh285.quanlyluongthuong.Controller.BaoTriThongTinTienThuongController;
+import com.nguyennhatminh285.quanlyluongthuong.Model.Thuong;
+import com.nguyennhatminh285.quanlyluongthuong.View.TuyChonUI;
+import com.nguyennhatminh285.quanlyluongthuong.util.IOptionEvent;
+import com.nguyennhatminh285.quanlyluongthuong.util.IUpdateTableEvent;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
+
+public class BaoTriThongTinTienThuongUI extends javax.swing.JFrame {
+    private BaoTriThongTinTienThuongController baoTriThongTinTienThuongController;
     /**
      * Creates new form BaoTriThongTinTienThuongUI
      */
-    public BaoTriThongTinTienThuongUI() {
+    public BaoTriThongTinTienThuongUI() throws SQLException {
         initComponents();
+        setLocationRelativeTo(null);
+        txtTenTienThuong.requestFocus();
+        baoTriThongTinTienThuongController = new BaoTriThongTinTienThuongController();
+        UpdateTable();
+        
+        baoTriThongTinTienThuongController.setUpdateTableEvent(new IUpdateTableEvent() {
+            @Override
+            public void onUpdateDataOnTableEvent() {
+                try {
+                    UpdateTable();
+                } catch (SQLException ex) {
+                    Logger.getLogger(BaoTriThongTinTienThuongUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
     }
-
+    
+    public void UpdateTable() throws SQLException{
+        ArrayList<Thuong> thuongs = baoTriThongTinTienThuongController.onQueryAllTienThuong();
+        
+        DefaultTableModel defaultTableModel = (DefaultTableModel)tblTienThuong.getModel();
+        
+        while(defaultTableModel.getRowCount() > 0){
+            defaultTableModel.removeRow(0);
+        }
+        
+        for (Thuong thuong : thuongs) {
+            defaultTableModel.addRow(thuong.toObjectArrayData());
+        }
+    }
+    
+    public boolean validateData(){
+        String message = "";
+        int numErr = 0;
+        try {
+            if(txtTenTienThuong.getText().trim().equalsIgnoreCase("")){
+                message += "Tên Tiền Thưởng không được để trống!!\n";
+                numErr += 1;
+            }
+            
+            if(txtTienThuong.getText().trim().equalsIgnoreCase("")){
+                message += "Tiền Thưởng không được để trống\n";
+                numErr += 1;
+            }
+            
+            if(numErr > 0){
+                throw new Exception(message);
+            }
+            
+            try{
+                Float.parseFloat(txtTienThuong.getText().trim());
+            }catch(Exception ex){
+                throw new Exception("Tiền thưởng phải nhập đúng định dạng");
+            }
+            
+            return true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(getContentPane(), message);
+        } 
+        return false;
+    }
+    
+    public void clearAllTextBox(){
+        txtMaTienThuong.setText("");
+        txtTenTienThuong.setText("");
+        txtTienThuong.setText("");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,19 +104,20 @@ public class BaoTriThongTinTienThuongUI extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtMaTienThuong = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtTenTienThuong = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtTienThuong = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        tblTienThuong = new javax.swing.JTable();
+        btnXoaTienThuong = new javax.swing.JButton();
+        btnThemTienThuong = new javax.swing.JButton();
+        btnSuaTienThuong = new javax.swing.JButton();
+        btnXoaThongTin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Bảo Trì Thông Tin Tiền Thưởng");
 
         jLabel1.setFont(jLabel1.getFont().deriveFont(jLabel1.getFont().getStyle() | java.awt.Font.BOLD, jLabel1.getFont().getSize()+12));
         jLabel1.setText("Bảo Trì Thông Tin Tiền Thưởng");
@@ -49,19 +125,25 @@ public class BaoTriThongTinTienThuongUI extends javax.swing.JFrame {
         jLabel2.setFont(jLabel2.getFont().deriveFont(jLabel2.getFont().getSize()+4f));
         jLabel2.setText("Mã Tiền Thưởng");
 
-        jTextField1.setFont(jTextField1.getFont().deriveFont(jTextField1.getFont().getSize()+4f));
+        txtMaTienThuong.setEditable(false);
+        txtMaTienThuong.setFont(txtMaTienThuong.getFont().deriveFont(txtMaTienThuong.getFont().getSize()+4f));
+        txtMaTienThuong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtMaTienThuongMouseClicked(evt);
+            }
+        });
 
         jLabel3.setFont(jLabel3.getFont().deriveFont(jLabel3.getFont().getSize()+4f));
         jLabel3.setText("Tên Tiền Thưởng");
 
-        jTextField2.setFont(jTextField2.getFont().deriveFont(jTextField2.getFont().getSize()+4f));
+        txtTenTienThuong.setFont(txtTenTienThuong.getFont().deriveFont(txtTenTienThuong.getFont().getSize()+4f));
 
         jLabel4.setFont(jLabel4.getFont().deriveFont(jLabel4.getFont().getSize()+4f));
         jLabel4.setText("Tiền Thưởng");
 
-        jTextField3.setFont(jTextField3.getFont().deriveFont(jTextField3.getFont().getSize()+4f));
+        txtTienThuong.setFont(txtTienThuong.getFont().deriveFont(txtTienThuong.getFont().getSize()+4f));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblTienThuong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -80,19 +162,44 @@ public class BaoTriThongTinTienThuongUI extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        tblTienThuong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblTienThuongMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblTienThuong);
 
-        jButton1.setFont(jButton1.getFont().deriveFont(jButton1.getFont().getSize()+4f));
-        jButton1.setText("Xóa Tiền Thưởng");
+        btnXoaTienThuong.setFont(btnXoaTienThuong.getFont().deriveFont(btnXoaTienThuong.getFont().getSize()+4f));
+        btnXoaTienThuong.setText("Xóa Tiền Thưởng");
+        btnXoaTienThuong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaTienThuongActionPerformed(evt);
+            }
+        });
 
-        jButton2.setFont(jButton2.getFont().deriveFont(jButton2.getFont().getSize()+4f));
-        jButton2.setText("Thêm Tiền Thưởng");
+        btnThemTienThuong.setFont(btnThemTienThuong.getFont().deriveFont(btnThemTienThuong.getFont().getSize()+4f));
+        btnThemTienThuong.setText("Thêm Tiền Thưởng");
+        btnThemTienThuong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemTienThuongActionPerformed(evt);
+            }
+        });
 
-        jButton3.setFont(jButton3.getFont().deriveFont(jButton3.getFont().getSize()+4f));
-        jButton3.setText("Sửa Tiền Thưởng");
+        btnSuaTienThuong.setFont(btnSuaTienThuong.getFont().deriveFont(btnSuaTienThuong.getFont().getSize()+4f));
+        btnSuaTienThuong.setText("Sửa Tiền Thưởng");
+        btnSuaTienThuong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaTienThuongActionPerformed(evt);
+            }
+        });
 
-        jButton4.setFont(jButton4.getFont().deriveFont(jButton4.getFont().getSize()+4f));
-        jButton4.setText("Xóa Thông Tin");
+        btnXoaThongTin.setFont(btnXoaThongTin.getFont().deriveFont(btnXoaThongTin.getFont().getSize()+4f));
+        btnXoaThongTin.setText("Xóa Thông Tin");
+        btnXoaThongTin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaThongTinActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -106,28 +213,27 @@ public class BaoTriThongTinTienThuongUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(117, 117, 117)
-                        .addComponent(jButton2)
+                        .addComponent(btnThemTienThuong)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3)
+                        .addComponent(btnSuaTienThuong)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)
+                        .addComponent(btnXoaTienThuong)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton4))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(217, 217, 217)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel4))
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
-                                .addComponent(jTextField1)
-                                .addComponent(jTextField2)))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(49, 49, 49)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 784, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(btnXoaThongTin))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(217, 217, 217)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtTienThuong, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
+                            .addComponent(txtMaTienThuong)
+                            .addComponent(txtTenTienThuong)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 784, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -138,28 +244,161 @@ public class BaoTriThongTinTienThuongUI extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMaTienThuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTenTienThuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTienThuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(btnXoaTienThuong)
+                    .addComponent(btnThemTienThuong)
+                    .addComponent(btnSuaTienThuong)
+                    .addComponent(btnXoaThongTin))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tblTienThuongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTienThuongMouseClicked
+        int rowIndex = tblTienThuong.getSelectedRow();
+        TableModel model = tblTienThuong.getModel();
+        
+        String maTienThuong = model.getValueAt(rowIndex, 0).toString();
+        String tenTienThuong =  model.getValueAt(rowIndex, 1).toString();
+        String tienThuong = model.getValueAt(rowIndex, 2).toString();
+        
+        txtMaTienThuong.setText(maTienThuong);
+        txtTenTienThuong.setText(tenTienThuong);
+        txtTienThuong.setText(tienThuong);
+    }//GEN-LAST:event_tblTienThuongMouseClicked
+
+    private void btnThemTienThuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemTienThuongActionPerformed
+        TuyChonUI tuyChonUI = new TuyChonUI();
+        tuyChonUI.setOnHandleOptionEvent(new IOptionEvent() {
+            @Override
+            public void onAcceptEvent() {
+                if(validateData()) {
+                    Thuong thuong = new Thuong();
+                    thuong.setTenThuong(txtTenTienThuong.getText());
+                    thuong.setTienThuong(Float.parseFloat(txtTienThuong.getText()));
+                    try {
+                        baoTriThongTinTienThuongController.addNewTienThuong(thuong);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(BaoTriThongTinTienThuongUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    clearAllTextBox();
+                    JOptionPane.showMessageDialog(getContentPane(), "Thêm Tiền Thưởng thành công!!");
+                }
+                
+            }
+
+            @Override
+            public void onCancelEvent() {
+                clearAllTextBox();
+            }
+        });
+        tuyChonUI.onCallGUI(getContentPane(), "Bạn có chắc chắn muốn thêm Tiền Thưởng này không ?", "Thông Báo");
+    }//GEN-LAST:event_btnThemTienThuongActionPerformed
+
+    private void btnSuaTienThuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaTienThuongActionPerformed
+        TuyChonUI tuyChonUI = new TuyChonUI();
+        tuyChonUI.setOnHandleOptionEvent(new IOptionEvent() {
+            @Override
+            public void onAcceptEvent() {
+                if(validateData()) {
+                    if(txtMaTienThuong.getText().equals("")){
+                        JOptionPane.showMessageDialog(getContentPane(), "Bạn chưa chọn Tiền Thưởng cần sửa!!");
+                        return;
+                    }
+                    Thuong thuong = new Thuong();
+                    thuong.setMaThuong(Long.parseLong(txtMaTienThuong.getText()));
+                    thuong.setTenThuong(txtTenTienThuong.getText());
+                    thuong.setTienThuong(Float.parseFloat(txtTienThuong.getText()));
+                    try {
+                        baoTriThongTinTienThuongController.updateTienThuongByID(thuong);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(BaoTriThongTinTienThuongUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    clearAllTextBox();
+                    JOptionPane.showMessageDialog(getContentPane(), "Sửa Tiền Thưởng thành công!!");
+                }
+                
+            }
+
+            @Override
+            public void onCancelEvent() {
+                clearAllTextBox();
+            }
+        });
+        tuyChonUI.onCallGUI(getContentPane(), "Bạn có chắc chắn muốn sửa Tiền Thưởng này không ?", "Thông Báo");
+    }//GEN-LAST:event_btnSuaTienThuongActionPerformed
+
+    private void btnXoaTienThuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaTienThuongActionPerformed
+        TuyChonUI tuyChonUI = new TuyChonUI();
+        tuyChonUI.setOnHandleOptionEvent(new IOptionEvent() {
+            @Override
+            public void onAcceptEvent() {
+                if(validateData()) {
+                    if(txtMaTienThuong.getText().equals("")){
+                        JOptionPane.showMessageDialog(getContentPane(), "Bạn chưa chọn Tiền Thưởng cần xóa!!");
+                        return;
+                    }
+
+                    try {
+                        baoTriThongTinTienThuongController.deleteTienThuongByID(Long.parseLong(txtMaTienThuong.getText().trim()));
+                    } catch (SQLException ex) {
+                        Logger.getLogger(BaoTriThongTinTienThuongUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    clearAllTextBox();
+                    JOptionPane.showMessageDialog(getContentPane(), "Xóa Tiền Thưởng thành công!!");
+                }
+                
+            }
+
+            @Override
+            public void onCancelEvent() {
+                clearAllTextBox();
+            }
+        });
+        tuyChonUI.onCallGUI(getContentPane(), "Bạn có chắc chắn muốn xóa Tiền Thưởng này không ?", "Thông Báo");
+    }//GEN-LAST:event_btnXoaTienThuongActionPerformed
+
+    private void btnXoaThongTinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaThongTinActionPerformed
+        TuyChonUI tuyChonUI = new TuyChonUI();
+        tuyChonUI.setOnHandleOptionEvent(new IOptionEvent() {
+            @Override
+            public void onAcceptEvent() {
+                if(validateData()){
+                    clearAllTextBox();
+                    JOptionPane.showMessageDialog(getContentPane(), "Xóa thông tin thành công!!");
+                }
+                
+            }
+
+            @Override
+            public void onCancelEvent() {
+                clearAllTextBox();
+            }
+        });
+        
+        tuyChonUI.onCallGUI(getContentPane(), "Bạn có chắc chắn muốn xóa thông tin này không ?", "Thông Báo");
+    }//GEN-LAST:event_btnXoaThongTinActionPerformed
+
+    private void txtMaTienThuongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtMaTienThuongMouseClicked
+        JOptionPane.showMessageDialog(getContentPane(), "Mã Tiền Thưởng được tự động sinh\nBạn không được phép sửa mã!!!");
+        txtTenTienThuong.requestFocus();
+    }//GEN-LAST:event_txtMaTienThuongMouseClicked
 
     public void onStartGUI() {
         /* Set the Nimbus look and feel */
@@ -188,24 +427,28 @@ public class BaoTriThongTinTienThuongUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BaoTriThongTinTienThuongUI().setVisible(true);
+                try {
+                    new BaoTriThongTinTienThuongUI().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(BaoTriThongTinTienThuongUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnSuaTienThuong;
+    private javax.swing.JButton btnThemTienThuong;
+    private javax.swing.JButton btnXoaThongTin;
+    private javax.swing.JButton btnXoaTienThuong;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTable tblTienThuong;
+    private javax.swing.JTextField txtMaTienThuong;
+    private javax.swing.JTextField txtTenTienThuong;
+    private javax.swing.JTextField txtTienThuong;
     // End of variables declaration//GEN-END:variables
 }

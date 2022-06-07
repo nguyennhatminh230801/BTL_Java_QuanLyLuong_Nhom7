@@ -4,17 +4,46 @@
  */
 package com.nguyennhatminh285.quanlyluongthuong.View.BaoTriThongTinPhuCap;
 
+import com.nguyennhatminh285.quanlyluongthuong.Controller.BaoTriThongTinPhuCapController;
+import com.nguyennhatminh285.quanlyluongthuong.Model.PhuCap;
+import com.nguyennhatminh285.quanlyluongthuong.View.TuyChonUI;
+import com.nguyennhatminh285.quanlyluongthuong.util.IOptionEvent;
+import com.nguyennhatminh285.quanlyluongthuong.util.IUpdateTableEvent;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 /**
  *
  * @author Admin
  */
 public class BaoTriThongTinPhuCapUI extends javax.swing.JFrame {
-
+    private BaoTriThongTinPhuCapController baoTriThongTinPhuCapController;
     /**
      * Creates new form BaoTriThongTinPhuCapUI
      */
-    public BaoTriThongTinPhuCapUI() {
+    public BaoTriThongTinPhuCapUI() throws SQLException {
         initComponents();
+        setLocationRelativeTo(null);
+        txtTenPhuCap.requestFocus();
+        
+        baoTriThongTinPhuCapController = new BaoTriThongTinPhuCapController();
+        UpdateTable();
+        
+        baoTriThongTinPhuCapController.setUpdateTableEvent(new IUpdateTableEvent() {
+            @Override
+            public void onUpdateDataOnTableEvent() {
+                try {
+                    UpdateTable();
+                } catch (SQLException ex) {
+                    Logger.getLogger(BaoTriThongTinPhuCapUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
     }
 
     /**
@@ -48,6 +77,11 @@ public class BaoTriThongTinPhuCapUI extends javax.swing.JFrame {
 
         btnThemPhuCap.setFont(btnThemPhuCap.getFont().deriveFont(btnThemPhuCap.getFont().getSize()+3f));
         btnThemPhuCap.setText("Thêm Phụ Cấp");
+        btnThemPhuCap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemPhuCapActionPerformed(evt);
+            }
+        });
 
         tblPhuCap.setFont(tblPhuCap.getFont().deriveFont(tblPhuCap.getFont().getSize()+3f));
         tblPhuCap.setModel(new javax.swing.table.DefaultTableModel(
@@ -70,21 +104,42 @@ public class BaoTriThongTinPhuCapUI extends javax.swing.JFrame {
             }
         });
         tblPhuCap.setColumnSelectionAllowed(true);
+        tblPhuCap.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPhuCapMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblPhuCap);
         tblPhuCap.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         btnXoaPhuCap.setFont(btnXoaPhuCap.getFont().deriveFont(btnXoaPhuCap.getFont().getSize()+3f));
         btnXoaPhuCap.setText("Xóa Phụ Cấp");
+        btnXoaPhuCap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaPhuCapActionPerformed(evt);
+            }
+        });
 
         btnSuaPhuCap.setFont(btnSuaPhuCap.getFont().deriveFont(btnSuaPhuCap.getFont().getSize()+3f));
         btnSuaPhuCap.setText("Sửa Phụ Cấp");
+        btnSuaPhuCap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaPhuCapActionPerformed(evt);
+            }
+        });
 
         btnXoaThongTin.setFont(btnXoaThongTin.getFont().deriveFont(btnXoaThongTin.getFont().getSize()+3f));
         btnXoaThongTin.setText("Xóa Thông Tin");
+        btnXoaThongTin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaThongTinActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(jLabel2.getFont().deriveFont(jLabel2.getFont().getSize()+3f));
         jLabel2.setText("Mã Phụ Cấp:");
 
+        txtMaPhuCap.setEditable(false);
         txtMaPhuCap.setFont(txtMaPhuCap.getFont().deriveFont(txtMaPhuCap.getFont().getSize()+3f));
         txtMaPhuCap.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txtMaPhuCap.setEnabled(false);
@@ -171,7 +226,171 @@ public class BaoTriThongTinPhuCapUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnThemPhuCapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemPhuCapActionPerformed
+        TuyChonUI tuyChonUI = new TuyChonUI();
+        tuyChonUI.setOnHandleOptionEvent(new IOptionEvent() {
+            @Override
+            public void onAcceptEvent() {
+                if(validateData()) {
+                    PhuCap phuCap = new PhuCap();
+                    phuCap.setTenPhuCap(txtTenPhuCap.getText().trim());
+                    phuCap.setTienPhuCap(Long.parseLong(txtTienPhuCap.getText().trim()));
+                    
+                    try {
+                        baoTriThongTinPhuCapController.addNewPhuCap(phuCap);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(BaoTriThongTinPhuCapUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    clearAllTextBox();
+                    JOptionPane.showMessageDialog(getContentPane(), "Thêm Phụ Cấp thành công!!");
+                }
+            }
+
+            @Override
+            public void onCancelEvent() {
+                clearAllTextBox();
+            }
+        });
+        
+       tuyChonUI.onCallGUI(getContentPane(), "Bạn có chắc chắn muốn thêm Phụ Cấp này không ?", "Thông Báo");
+    }//GEN-LAST:event_btnThemPhuCapActionPerformed
+
+    private void btnSuaPhuCapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaPhuCapActionPerformed
+        TuyChonUI tuyChonUI = new TuyChonUI();
+        tuyChonUI.setOnHandleOptionEvent(new IOptionEvent() {
+            @Override
+            public void onAcceptEvent() {
+                if(validateData()) {
+                    if(txtMaPhuCap.getText().equals("")){
+                        JOptionPane.showMessageDialog(getContentPane(), "Bạn chưa chọn Phụ Cấp cần sửa!!");
+                        return;
+                    }
+                    PhuCap phuCap = new PhuCap();
+                    phuCap.setMaPhuCap(Long.parseLong(txtMaPhuCap.getText().trim()));
+                    phuCap.setTenPhuCap(txtTenPhuCap.getText().trim());
+                    phuCap.setTienPhuCap(Long.parseLong(txtTienPhuCap.getText().trim()));
+                    
+                    try {
+                        baoTriThongTinPhuCapController.updatePhuCapByID(phuCap);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(BaoTriThongTinPhuCapUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    clearAllTextBox();
+                    JOptionPane.showMessageDialog(getContentPane(), "Sửa Phụ Cấp thành công!!");
+                }
+            }
+
+            @Override
+            public void onCancelEvent() {
+                clearAllTextBox();
+            }
+        });
+        
+        tuyChonUI.onCallGUI(getContentPane(), "Bạn có chắc chắn muốn sửa Phụ Cấp này không ?", "Thông Báo");
+    }//GEN-LAST:event_btnSuaPhuCapActionPerformed
+
+    private void btnXoaPhuCapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaPhuCapActionPerformed
+        TuyChonUI tuyChonUI = new TuyChonUI();
+        tuyChonUI.setOnHandleOptionEvent(new IOptionEvent() {
+            @Override
+            public void onAcceptEvent() {
+                if(validateData()) {
+                    if(txtMaPhuCap.getText().equals("")){
+                        JOptionPane.showMessageDialog(getContentPane(), "Bạn chưa chọn Phụ Cấp cần xóa!!");
+                        return;
+                    }
+                    
+                    try {
+                        baoTriThongTinPhuCapController.deletePhuCapByID(Long.parseLong(txtMaPhuCap.getText()));
+                    } catch (SQLException ex) {
+                        Logger.getLogger(BaoTriThongTinPhuCapUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    clearAllTextBox();
+                    JOptionPane.showMessageDialog(getContentPane(), "Xóa Phụ Cấp thành công!!");
+                }
+                
+            }
+
+            @Override
+            public void onCancelEvent() {
+                clearAllTextBox();
+            }
+        });
+        tuyChonUI.onCallGUI(getContentPane(), "Bạn có chắc chắn muốn xóa Phụ Cấp này không ?", "Thông Báo");
+    }//GEN-LAST:event_btnXoaPhuCapActionPerformed
+
+    private void btnXoaThongTinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaThongTinActionPerformed
+        TuyChonUI tuyChonUI = new TuyChonUI();
+        tuyChonUI.setOnHandleOptionEvent(new IOptionEvent() {
+            @Override
+            public void onAcceptEvent() {
+                if(validateData()){
+                    clearAllTextBox();
+                    JOptionPane.showMessageDialog(getContentPane(), "Xóa thông tin thành công!!");
+                }
+                
+            }
+
+            @Override
+            public void onCancelEvent() {
+                clearAllTextBox();
+            }
+        });
+        
+        tuyChonUI.onCallGUI(getContentPane(), "Bạn có chắc chắn muốn xóa thông tin này không ?", "Thông Báo");
+    }//GEN-LAST:event_btnXoaThongTinActionPerformed
+
+    private void tblPhuCapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPhuCapMouseClicked
+        int rowIndex = tblPhuCap.getSelectedRow();
+        TableModel model = tblPhuCap.getModel();
+        
+        String maPhuCap = model.getValueAt(rowIndex, 0).toString();
+        String tenPhuCap=  model.getValueAt(rowIndex, 1).toString();
+        String tienPhuCap = model.getValueAt(rowIndex, 2).toString();
+        
+        txtMaPhuCap.setText(maPhuCap);
+        txtTenPhuCap.setText(tenPhuCap);
+        txtTienPhuCap.setText(tienPhuCap);
+    }//GEN-LAST:event_tblPhuCapMouseClicked
+
+    public void clearAllTextBox(){
+        txtMaPhuCap.setText("");
+        txtTenPhuCap.setText("");
+        txtTienPhuCap.setText("");
+    }
     
+    public boolean validateData(){
+        String message = "";
+        int numErr = 0;
+        try {
+            if(txtTenPhuCap.getText().trim().equalsIgnoreCase("")){
+                message += "Tên Phụ Cấp không được để trống!!\n";
+                numErr += 1;
+            }
+            
+            if(txtTienPhuCap.getText().trim().equalsIgnoreCase("")){
+                message += "Tiền Phụ Cấp không được để trống\n";
+                numErr += 1;
+            }
+            
+            if(numErr > 0){
+                throw new Exception(message);
+            }
+            
+            try{
+                Long.parseLong(txtTienPhuCap.getText().trim());
+            }catch(Exception ex){
+                throw new Exception("Tiền phụ cấp phải nhập đúng định dạng");
+            }
+            return true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(getContentPane(), message);
+        } 
+        return false;
+    }
     public void onStartGUI() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -199,7 +418,11 @@ public class BaoTriThongTinPhuCapUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BaoTriThongTinPhuCapUI().setVisible(true);
+                try {
+                    new BaoTriThongTinPhuCapUI().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(BaoTriThongTinPhuCapUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -219,4 +442,18 @@ public class BaoTriThongTinPhuCapUI extends javax.swing.JFrame {
     private javax.swing.JTextField txtTenPhuCap;
     private javax.swing.JTextField txtTienPhuCap;
     // End of variables declaration//GEN-END:variables
+
+    private void UpdateTable() throws SQLException {
+        ArrayList<PhuCap> phuCaps = baoTriThongTinPhuCapController.onQueryAllPhuCap();
+        
+        DefaultTableModel defaultTableModel = (DefaultTableModel)tblPhuCap.getModel();
+        
+        while(defaultTableModel.getRowCount() > 0){
+            defaultTableModel.removeRow(0);
+        }
+        
+        for (PhuCap phuCap : phuCaps) {
+            defaultTableModel.addRow(phuCap.toObjectArrayData());
+        }
+    }
 }

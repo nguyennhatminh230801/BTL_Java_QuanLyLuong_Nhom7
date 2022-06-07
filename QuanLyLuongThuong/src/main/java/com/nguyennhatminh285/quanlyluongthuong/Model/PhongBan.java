@@ -8,17 +8,29 @@ package com.nguyennhatminh285.quanlyluongthuong.Model;
  *
  * @author Admin
  */
-public class PhongBan {
+public class PhongBan extends BaseModel{
+    private long maPhong;
     private String tenPhong;
     private String tenTruongPhong;
 
     public PhongBan() {
     }
 
-    public PhongBan(String tenPhong, String tenTruongPhong) {
+    public PhongBan(long maPhong, String tenPhong, String tenTruongPhong) {
+        this.maPhong = maPhong;
         this.tenPhong = tenPhong;
         this.tenTruongPhong = tenTruongPhong;
     }
+
+    public long getMaPhong() {
+        return maPhong;
+    }
+
+    public void setMaPhong(long maPhong) {
+        this.maPhong = maPhong;
+    }
+
+    
 
     public String getTenPhong() {
         return tenPhong;
@@ -35,4 +47,15 @@ public class PhongBan {
     public void setTenTruongPhong(String tenTruongPhong) {
         this.tenTruongPhong = tenTruongPhong;
     }
+
+    @Override
+    public Object[] toObjectArrayData() {
+        Object[] answer = new Object[3];
+        answer[0] = maPhong;
+        answer[1] = tenPhong;
+        answer[2] = tenTruongPhong;
+        return answer;
+    }
+    
+    
 }

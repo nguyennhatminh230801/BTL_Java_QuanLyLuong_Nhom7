@@ -4,13 +4,12 @@
  */
 package com.nguyennhatminh285.quanlyluongthuong.Model;
 
-import java.sql.Date;
-
 /**
  *
  * @author Admin
  */
-public class NhanVien {
+public class NhanVien extends BaseModel{
+    private long maNhanVien;
     private String tenNhanVien;
     private int gioiTinh;
     private String ngaySinh;
@@ -30,6 +29,16 @@ public class NhanVien {
         this.trinhDo = trinhDo;
     }
 
+    public NhanVien(long maNhanVien, String tenNhanVien, int gioiTinh, String ngaySinh, String diaChi, String chucVu, String trinhDo) {
+        this.maNhanVien = maNhanVien;
+        this.tenNhanVien = tenNhanVien;
+        this.gioiTinh = gioiTinh;
+        this.ngaySinh = ngaySinh;
+        this.diaChi = diaChi;
+        this.chucVu = chucVu;
+        this.trinhDo = trinhDo;
+    }
+    
     public String getTenNhanVien() {
         return tenNhanVien;
     }
@@ -76,6 +85,19 @@ public class NhanVien {
 
     public void setTrinhDo(String trinhDo) {
         this.trinhDo = trinhDo;
+    }
+
+    @Override
+    public Object[] toObjectArrayData() {
+        Object[] answer = new Object[7];
+        answer[0] = maNhanVien;
+        answer[1] = tenNhanVien;
+        answer[2] = (gioiTinh == 0) ? "Nam" : "Nữ";
+        answer[3] = ngaySinh;
+        answer[4] = diaChi;
+        answer[5] = chucVu;
+        answer[6] = trinhDo;
+        return answer;
     }
     
     
