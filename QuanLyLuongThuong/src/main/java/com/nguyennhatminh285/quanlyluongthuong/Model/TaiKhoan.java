@@ -11,6 +11,7 @@ import java.io.Serializable;
  * @author Admin
  */
 public class TaiKhoan extends BaseModel implements Serializable{
+    private long maTaiKhoan;
     private String taiKhoan;
     private String matKhau;
     private int quyen;
@@ -30,7 +31,14 @@ public class TaiKhoan extends BaseModel implements Serializable{
         this.taiKhoan = taiKhoan;
         this.matKhau = matKhau;
     }
-    
+
+    public long getMaTaiKhoan() {
+        return maTaiKhoan;
+    }
+
+    public void setMaTaiKhoan(long maTaiKhoan) {
+        this.maTaiKhoan = maTaiKhoan;
+    }
     
     public TaiKhoan(String taiKhoan, String matKhau, int quyen) {
         this(taiKhoan, matKhau);
@@ -55,12 +63,12 @@ public class TaiKhoan extends BaseModel implements Serializable{
 
     @Override
     public Object[] toObjectArrayData() {
-        Object[] answer = new Object[3];
-        answer[0] = taiKhoan;
-        answer[1] = matKhau;
-        answer[2] = quyen;
+        Object[] answer = new Object[4];
+        String[] tenQuyen = {"Quản Trị Viên", "Giảng Viên", "Kế Toán", "Nhân Sự", "Giám Đốc"};
+        answer[0] = maTaiKhoan;
+        answer[1] = taiKhoan;
+        answer[2] = matKhau;
+        answer[3] = tenQuyen[quyen];
         return answer;
     }
-    
-    
 }

@@ -95,12 +95,8 @@ create table CHAMCONG_HOCPHAN(
     foreign key(MAHOCPHAN) references HOCPHAN(MAHOCPHAN)
 );
 
-alter table NHANVIEN add MATAIKHOAN bigint after MAHESOLUONG
-alter table NHANVIEN add constraint FK_MATK foreign key(MATAIKHOAN) references TAIKHOAN(MATAIKHOAN)
+alter table NHANVIEN add MATAIKHOAN bigint after MAHESOLUONG;
+alter table NHANVIEN add constraint FK_MATK foreign key(MATAIKHOAN) references TAIKHOAN(MATAIKHOAN);
+alter table HOCPHAN add SOTINCHI int after TENHOCPHAN;
 
-select * from PHONGBAN
-update PHONGBAN set TENPHONG = ?, TEN_TRUONGPHONG = ? where MAPHONG = ?
-delete from PHONGBAN where MAPHONG = ?
-select * from NHANVIEN 
-
-select 
+select * from HOCPHAN

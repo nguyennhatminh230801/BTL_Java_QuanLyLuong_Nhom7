@@ -8,6 +8,7 @@ import com.nguyennhatminh285.quanlyluongthuong.View.BaoTriThongTinHeSoLuong.BaoT
 import com.nguyennhatminh285.quanlyluongthuong.View.BaoTriThongTinNhanVien.BaoTriThongTinNhanVienUI;
 import com.nguyennhatminh285.quanlyluongthuong.View.BaoTriThongTinPhongBan.BaoTriThongTinPhongBanUI;
 import com.nguyennhatminh285.quanlyluongthuong.View.BaoTriThongTinPhuCap.BaoTriThongTinPhuCapUI;
+import com.nguyennhatminh285.quanlyluongthuong.View.BaoTriThongTinTaiKhoan.BaoTriThongTinTaiKhoanUI;
 import com.nguyennhatminh285.quanlyluongthuong.View.BaoTriThongTinTienThuong.BaoTriThongTinTienThuongUI;
 import com.nguyennhatminh285.quanlyluongthuong.View.TuyChonUI;
 import com.nguyennhatminh285.quanlyluongthuong.util.IOptionEvent;
@@ -194,6 +195,16 @@ public class TrangChuAdminUI extends javax.swing.JFrame implements ActionListene
     public void actionPerformed(ActionEvent e) {
         JButton jButton = (JButton) e.getSource();
         
+        if(jButton.equals(btnTaiKhoan)){
+            try {
+                new BaoTriThongTinTaiKhoanUI().onStartGUI();
+            } catch (SQLException ex) {
+                Logger.getLogger(TrangChuAdminUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            this.dispose();
+            return;
+        }
+        
         if(jButton.equals(btnHeSoLuong)){
             try {
                 new BaoTriThongTinHeSoLuongUI().onStartGUI();
@@ -268,7 +279,6 @@ public class TrangChuAdminUI extends javax.swing.JFrame implements ActionListene
             });
             
             tuyChonUI.onCallGUI(this.getContentPane(), "Bạn có muốn thoát chương trình", "Thông Báo");
-            
         }
     }
 }

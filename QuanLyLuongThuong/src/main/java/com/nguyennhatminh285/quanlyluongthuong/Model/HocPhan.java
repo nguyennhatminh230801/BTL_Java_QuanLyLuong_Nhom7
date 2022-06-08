@@ -21,6 +21,14 @@ public class HocPhan extends BaseModel{
     public HocPhan() {
     }
 
+    public long getMaHocPhan() {
+        return maHocPhan;
+    }
+
+    public void setMaHocPhan(long maHocPhan) {
+        this.maHocPhan = maHocPhan;
+    }
+    
     public String getTenHocPhan() {
         return tenHocPhan;
     }

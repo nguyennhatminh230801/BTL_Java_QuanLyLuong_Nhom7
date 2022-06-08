@@ -336,7 +336,6 @@ public class BaoTriThongTinPhongBanUI extends javax.swing.JFrame {
             @Override
             public void onAcceptEvent() {
                 if(validateData()){
-                    
                     clearAllTextBox();
                     JOptionPane.showMessageDialog(getContentPane(), "Xóa thông tin thành công!!");
                 }
