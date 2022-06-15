@@ -16,7 +16,10 @@ public class NhanVien extends BaseModel{
     private String diaChi;
     private String chucVu;
     private String trinhDo;
-
+    private String tenTaiKhoan;
+    private String tenPhongBan;
+    private int heSoLuong;
+    
     public NhanVien() {
     }
 
@@ -87,9 +90,41 @@ public class NhanVien extends BaseModel{
         this.trinhDo = trinhDo;
     }
 
+    public long getMaNhanVien() {
+        return maNhanVien;
+    }
+
+    public void setMaNhanVien(long maNhanVien) {
+        this.maNhanVien = maNhanVien;
+    }
+
+    public String getTenTaiKhoan() {
+        return tenTaiKhoan;
+    }
+
+    public void setTenTaiKhoan(String tenTaiKhoan) {
+        this.tenTaiKhoan = tenTaiKhoan;
+    }
+
+    public String getTenPhongBan() {
+        return tenPhongBan;
+    }
+
+    public void setTenPhongBan(String tenPhongBan) {
+        this.tenPhongBan = tenPhongBan;
+    }
+
+    public int getHeSoLuong() {
+        return heSoLuong;
+    }
+
+    public void setHeSoLuong(int heSoLuong) {
+        this.heSoLuong = heSoLuong;
+    }
+
     @Override
     public Object[] toObjectArrayData() {
-        Object[] answer = new Object[7];
+        Object[] answer = new Object[10];
         answer[0] = maNhanVien;
         answer[1] = tenNhanVien;
         answer[2] = (gioiTinh == 0) ? "Nam" : "Nữ";
@@ -97,8 +132,9 @@ public class NhanVien extends BaseModel{
         answer[4] = diaChi;
         answer[5] = chucVu;
         answer[6] = trinhDo;
+        answer[7] = tenTaiKhoan;
+        answer[8] = heSoLuong;
+        answer[9] = tenPhongBan;
         return answer;
     }
-    
-    
 }

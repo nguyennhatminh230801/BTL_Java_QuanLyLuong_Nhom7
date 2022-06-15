@@ -18,6 +18,8 @@ import java.util.ArrayList;
  */
 public class BaoTriThongTinNhanVienController {
     private static final String SELECT_ALL_NHANVIEN = "select * from NhanVien";
+    private static final String SELECT_ALL_PHONGBAN = "select * from PhongBan";
+    
     private static final String INSERT_NEW_NHANVIEN = "insert into NHANVIEN(TENNHANVIEN, GIOITINH, NGAYSINH, DIACHI, CHUCVU, TRINHDO) values(?, ?, ?, ?, ?, ?)";
     public ArrayList<NhanVien> onQueryAllNhanVien() throws SQLException{
         Connection connection = null;
@@ -28,16 +30,14 @@ public class BaoTriThongTinNhanVienController {
             
             ArrayList<NhanVien> answer = new ArrayList<>();
             while (resultSet.next()) {
-                NhanVien nhanVien = new NhanVien(
-                    resultSet.getLong(1),
-                    resultSet.getString(2),
-                    resultSet.getInt(3),
-                    resultSet.getString(4),
-                    resultSet.getString(5),
-                    resultSet.getString(6),
-                    resultSet.getString(7)
-                );
-                
+                NhanVien nhanVien = new NhanVien();
+                nhanVien.setMaNhanVien(resultSet.getLong(1));
+                nhanVien.setTenNhanVien(resultSet.getString(2));
+                nhanVien.setGioiTinh(resultSet.getInt(3));
+                nhanVien.setNgaySinh(resultSet.getString(4));
+                nhanVien.setDiaChi(resultSet.getString(5));
+                nhanVien.setChucVu(resultSet.getString(6));
+                nhanVien.setTrinhDo(resultSet.getString(7));
                 answer.add(nhanVien);
             }
             

@@ -99,4 +99,5 @@ alter table NHANVIEN add MATAIKHOAN bigint after MAHESOLUONG;
 alter table NHANVIEN add constraint FK_MATK foreign key(MATAIKHOAN) references TAIKHOAN(MATAIKHOAN);
 alter table HOCPHAN add SOTINCHI int after TENHOCPHAN;
 
+select * from NhanVien
 select * from HOCPHAN
