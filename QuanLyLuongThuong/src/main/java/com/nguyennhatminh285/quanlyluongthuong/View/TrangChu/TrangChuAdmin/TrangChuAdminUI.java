@@ -5,12 +5,15 @@
 package com.nguyennhatminh285.quanlyluongthuong.View.TrangChu.TrangChuAdmin;
 
 import com.nguyennhatminh285.quanlyluongthuong.View.BaoTriThongTinHeSoLuong.BaoTriThongTinHeSoLuongUI;
+import com.nguyennhatminh285.quanlyluongthuong.View.BaoTriThongTinHocPhan.BaoTriThongTinHocPhanUI;
 import com.nguyennhatminh285.quanlyluongthuong.View.BaoTriThongTinNhanVien.BaoTriThongTinNhanVienUI;
 import com.nguyennhatminh285.quanlyluongthuong.View.BaoTriThongTinPhongBan.BaoTriThongTinPhongBanUI;
 import com.nguyennhatminh285.quanlyluongthuong.View.BaoTriThongTinPhuCap.BaoTriThongTinPhuCapUI;
 import com.nguyennhatminh285.quanlyluongthuong.View.BaoTriThongTinTaiKhoan.BaoTriThongTinTaiKhoanUI;
 import com.nguyennhatminh285.quanlyluongthuong.View.BaoTriThongTinTienThuong.BaoTriThongTinTienThuongUI;
+import com.nguyennhatminh285.quanlyluongthuong.View.QuanLyThongTinCaNhan.QuanLyThongTinCaNhanUI;
 import com.nguyennhatminh285.quanlyluongthuong.View.TuyChonUI;
+import com.nguyennhatminh285.quanlyluongthuong.View.XemChiTietLuongCaNhan.XemChiTietLuongCaNhanUI;
 import com.nguyennhatminh285.quanlyluongthuong.util.IOptionEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -52,6 +55,9 @@ public class TrangChuAdminUI extends javax.swing.JFrame implements ActionListene
         btnPhongBan = new javax.swing.JButton();
         btnTaiKhoan = new javax.swing.JButton();
         btnThoat = new javax.swing.JButton();
+        btnDangXuat = new javax.swing.JButton();
+        btnXemChiTietLuongCaNhan = new javax.swing.JButton();
+        btnQuanLyThongTinCaNhan = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Trang Chủ Quản Trị");
@@ -86,37 +92,61 @@ public class TrangChuAdminUI extends javax.swing.JFrame implements ActionListene
         btnThoat.setFont(btnThoat.getFont().deriveFont(btnThoat.getFont().getSize()+3f));
         btnThoat.setText("Thoát");
 
+        btnDangXuat.setText("Đăng Xuất");
+        btnDangXuat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDangXuatActionPerformed(evt);
+            }
+        });
+
+        btnXemChiTietLuongCaNhan.setFont(btnXemChiTietLuongCaNhan.getFont().deriveFont(btnXemChiTietLuongCaNhan.getFont().getSize()+3f));
+        btnXemChiTietLuongCaNhan.setText("Xem Chi Tiết Lương Cá Nhân");
+
+        btnQuanLyThongTinCaNhan.setFont(btnQuanLyThongTinCaNhan.getFont().deriveFont(btnQuanLyThongTinCaNhan.getFont().getSize()+3f));
+        btnQuanLyThongTinCaNhan.setText("Quản Lý Thông Tin Cá Nhân");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(76, 76, 76)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnHocPhan, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPhuCap, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(85, 85, 85)
+                        .addComponent(btnDangXuat))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(76, 76, 76)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnHocPhan, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnPhuCap, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnHeSoLuong, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnTienThuong, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnChamCong, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnPhongBan, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnThoat, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(60, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(108, 108, 108)
+                .addComponent(btnXemChiTietLuongCaNhan)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnHeSoLuong, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTienThuong, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnChamCong, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPhongBan, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnThoat, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(79, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(239, 239, 239))
+                .addComponent(btnQuanLyThongTinCaNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(btnDangXuat))
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -137,15 +167,20 @@ public class TrangChuAdminUI extends javax.swing.JFrame implements ActionListene
                         .addComponent(btnNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnHocPhan, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnQuanLyThongTinCaNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnXemChiTietLuongCaNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
+    private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDangXuatActionPerformed
+
     public void onStartGUI() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -180,14 +215,17 @@ public class TrangChuAdminUI extends javax.swing.JFrame implements ActionListene
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChamCong;
+    private javax.swing.JButton btnDangXuat;
     private javax.swing.JButton btnHeSoLuong;
     private javax.swing.JButton btnHocPhan;
     private javax.swing.JButton btnNhanVien;
     private javax.swing.JButton btnPhongBan;
     private javax.swing.JButton btnPhuCap;
+    private javax.swing.JButton btnQuanLyThongTinCaNhan;
     private javax.swing.JButton btnTaiKhoan;
     private javax.swing.JButton btnThoat;
     private javax.swing.JButton btnTienThuong;
+    private javax.swing.JButton btnXemChiTietLuongCaNhan;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 
@@ -195,6 +233,7 @@ public class TrangChuAdminUI extends javax.swing.JFrame implements ActionListene
     public void actionPerformed(ActionEvent e) {
         JButton jButton = (JButton) e.getSource();
         
+        //Button Tai Khoan
         if(jButton.equals(btnTaiKhoan)){
             try {
                 new BaoTriThongTinTaiKhoanUI().onStartGUI();
@@ -205,6 +244,7 @@ public class TrangChuAdminUI extends javax.swing.JFrame implements ActionListene
             return;
         }
         
+        //Button He So Luong
         if(jButton.equals(btnHeSoLuong)){
             try {
                 new BaoTriThongTinHeSoLuongUI().onStartGUI();
@@ -215,16 +255,29 @@ public class TrangChuAdminUI extends javax.swing.JFrame implements ActionListene
             return;
         }
         
+        //Button Hoc Phan
         if(jButton.equals(btnHocPhan)){
-            
-        }
-        
-        if(jButton.equals(btnNhanVien)){
-            new BaoTriThongTinNhanVienUI().onStartGUI();
+            try {
+                new BaoTriThongTinHocPhanUI().onStartGUI();
+            } catch (SQLException ex) {
+                Logger.getLogger(TrangChuAdminUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
             this.dispose();
             return;
         }
         
+        //Button Nhan Vien
+        if(jButton.equals(btnNhanVien)){
+            try {
+                new BaoTriThongTinNhanVienUI().onStartGUI();
+            } catch (SQLException ex) {
+                Logger.getLogger(TrangChuAdminUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            this.dispose();
+            return;
+        }
+        
+        //Button Phong Ban
         if(jButton.equals(btnPhongBan)){
             try {
                 new BaoTriThongTinPhongBanUI().onStartGUI();
@@ -235,6 +288,7 @@ public class TrangChuAdminUI extends javax.swing.JFrame implements ActionListene
             return;
         }
         
+        //Button Phu Cap
         if(jButton.equals(btnPhuCap)){
             try {
                 new BaoTriThongTinPhuCapUI().onStartGUI();
@@ -245,10 +299,12 @@ public class TrangChuAdminUI extends javax.swing.JFrame implements ActionListene
             return;
         }
         
+        //Button Cham Cong
         if(jButton.equals(btnChamCong)){
             
         }
         
+        //Button Tien Thuong
         if(jButton.equals(btnTienThuong)){
             try {
                 new BaoTriThongTinTienThuongUI().onStartGUI();
@@ -259,10 +315,21 @@ public class TrangChuAdminUI extends javax.swing.JFrame implements ActionListene
             return;
         }
         
-        if(jButton.equals(btnHocPhan)){
-            
+        //Button Xem Chi Tiet Luong Ca Nhan
+        if(jButton.equals(btnXemChiTietLuongCaNhan)){
+            new XemChiTietLuongCaNhanUI().onStartGUI();
+            dispose();
+            return;
         }
         
+        //Button Quan Ly Thong Tin Ca Nhan
+        if(jButton.equals(btnQuanLyThongTinCaNhan)){
+            new QuanLyThongTinCaNhanUI().onStartGUI();
+            dispose();
+            return;
+        }
+        
+        //Button Thoat
         if(jButton.equals(btnThoat)){
             TuyChonUI tuyChonUI = new TuyChonUI();
             

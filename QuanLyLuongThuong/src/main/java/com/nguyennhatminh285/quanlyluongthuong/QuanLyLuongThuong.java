@@ -5,7 +5,7 @@
 
 package com.nguyennhatminh285.quanlyluongthuong;
 
-import com.nguyennhatminh285.quanlyluongthuong.View.BaoTriThongTinHocPhan.BaoTriThongTinHocPhanUI;
+import com.nguyennhatminh285.quanlyluongthuong.View.BaoTriThongTinNhanVien.BaoTriThongTinNhanVienUI;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -17,6 +17,6 @@ public class QuanLyLuongThuong {
 
     public static void main(String[] args) throws IOException, SQLException {
         //new DangNhapUI().onStartGUI();
-        new BaoTriThongTinHocPhanUI().onStartGUI();
+        new BaoTriThongTinNhanVienUI().onStartGUI();
     }
 }

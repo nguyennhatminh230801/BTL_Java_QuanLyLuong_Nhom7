@@ -56,6 +56,11 @@ public class PhongBan extends BaseModel{
         answer[2] = tenTruongPhong;
         return answer;
     }
+
+    @Override
+    public String toString() {
+        return getTenPhong();
+    }
     
     
 }

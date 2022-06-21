@@ -2,21 +2,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.nguyennhatminh285.quanlyluongthuong.View.XemThongTinCaNhan;
+package com.nguyennhatminh285.quanlyluongthuong.View.QuanLyThongTinCaNhan;
 
-import com.nguyennhatminh285.quanlyluongthuong.Controller.XemThongTinCaNhanController;
 import com.nguyennhatminh285.quanlyluongthuong.Model.NhanVien;
+import java.sql.Date;
 
 /**
  *
  * @author Admin
  */
-public class XemThongTinCaNhanUI extends javax.swing.JFrame {
+public class QuanLyThongTinCaNhanUI extends javax.swing.JFrame {
 
     /**
      * Creates new form XemThongTinCaNhanUI
      */
-    public XemThongTinCaNhanUI() {
+    public QuanLyThongTinCaNhanUI() {
         initComponents();
         initData();
     }
@@ -36,7 +36,6 @@ public class XemThongTinCaNhanUI extends javax.swing.JFrame {
         txtHoTen = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txtNgaySinh = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDiaChi = new javax.swing.JTextArea();
@@ -47,6 +46,8 @@ public class XemThongTinCaNhanUI extends javax.swing.JFrame {
         btnSuaThongTinCaNhan = new javax.swing.JButton();
         rdNam = new javax.swing.JRadioButton();
         rdNu = new javax.swing.JRadioButton();
+        txtNgaySinh = new com.toedter.calendar.JDateChooser();
+        btnQuayLai = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,8 +64,6 @@ public class XemThongTinCaNhanUI extends javax.swing.JFrame {
 
         jLabel5.setFont(jLabel5.getFont().deriveFont(jLabel5.getFont().getSize()+3f));
         jLabel5.setText("Ngày Sinh:");
-
-        txtNgaySinh.setFont(txtNgaySinh.getFont().deriveFont(txtNgaySinh.getFont().getSize()+3f));
 
         jLabel7.setFont(jLabel7.getFont().deriveFont(jLabel7.getFont().getSize()+3f));
         jLabel7.setText("Địa Chỉ:");
@@ -101,6 +100,16 @@ public class XemThongTinCaNhanUI extends javax.swing.JFrame {
         rdNu.setFont(rdNu.getFont().deriveFont(rdNu.getFont().getSize()+3f));
         rdNu.setText("Nữ");
 
+        txtNgaySinh.setDateFormatString("yyyy-M-dd");
+        txtNgaySinh.setFont(txtNgaySinh.getFont().deriveFont(txtNgaySinh.getFont().getSize()+3f));
+
+        btnQuayLai.setText("Quay Lại");
+        btnQuayLai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuayLaiActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -112,31 +121,33 @@ public class XemThongTinCaNhanUI extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2))
-                        .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtHoTen, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
                                 .addComponent(rdNam)
                                 .addGap(18, 18, 18)
-                                .addComponent(rdNu))))
+                                .addComponent(rdNu)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(txtHoTen))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
                             .addComponent(jLabel7)
                             .addComponent(jLabel9)
-                            .addComponent(jLabel10))
-                        .addGap(18, 18, 18)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cboTrinhDo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cboChucVu, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtNgaySinh, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
-                                    .addComponent(jScrollPane1))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(cboTrinhDo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(151, 151, 151))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
+                            .addComponent(txtNgaySinh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(135, 135, 135))
             .addGroup(layout.createSequentialGroup()
-                .addGap(256, 256, 256)
+                .addGap(44, 44, 44)
+                .addComponent(btnQuayLai)
+                .addGap(137, 137, 137)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -148,18 +159,20 @@ public class XemThongTinCaNhanUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(btnQuayLai))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(txtHoTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(rdNam)
                     .addComponent(rdNu))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(txtNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -176,7 +189,7 @@ public class XemThongTinCaNhanUI extends javax.swing.JFrame {
                     .addComponent(jLabel10))
                 .addGap(18, 18, 18)
                 .addComponent(btnSuaThongTinCaNhan)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         pack();
@@ -185,6 +198,10 @@ public class XemThongTinCaNhanUI extends javax.swing.JFrame {
     private void btnSuaThongTinCaNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaThongTinCaNhanActionPerformed
         
     }//GEN-LAST:event_btnSuaThongTinCaNhanActionPerformed
+
+    private void btnQuayLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuayLaiActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnQuayLaiActionPerformed
 
     public void onStartGUI() {
         /* Set the Nimbus look and feel */
@@ -200,28 +217,29 @@ public class XemThongTinCaNhanUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(XemThongTinCaNhanUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuanLyThongTinCaNhanUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(XemThongTinCaNhanUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuanLyThongTinCaNhanUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(XemThongTinCaNhanUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuanLyThongTinCaNhanUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(XemThongTinCaNhanUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuanLyThongTinCaNhanUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new XemThongTinCaNhanUI().setVisible(true);
+                new QuanLyThongTinCaNhanUI().setVisible(true);
             }
         });
     }
 
     private void initData(){
-        NhanVien nhanVien = XemThongTinCaNhanController.onCallUserData();
+        NhanVien nhanVien = null;
         txtHoTen.setText(nhanVien.getTenNhanVien());
-        txtNgaySinh.setText(nhanVien.getNgaySinh());
+        txtNgaySinh.setDate(new Date(txtNgaySinh.getDate().getTime()));
         txtDiaChi.setText(nhanVien.getDiaChi());
         
         for(int i = 0; i < cboChucVu.getItemCount() ; i++){
@@ -245,6 +263,7 @@ public class XemThongTinCaNhanUI extends javax.swing.JFrame {
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnQuayLai;
     private javax.swing.JButton btnSuaThongTinCaNhan;
     private javax.swing.JComboBox<String> cboChucVu;
     private javax.swing.JComboBox<String> cboTrinhDo;
@@ -261,6 +280,6 @@ public class XemThongTinCaNhanUI extends javax.swing.JFrame {
     private javax.swing.JRadioButton rdNu;
     private javax.swing.JTextArea txtDiaChi;
     private javax.swing.JTextField txtHoTen;
-    private javax.swing.JTextField txtNgaySinh;
+    private com.toedter.calendar.JDateChooser txtNgaySinh;
     // End of variables declaration//GEN-END:variables
 }

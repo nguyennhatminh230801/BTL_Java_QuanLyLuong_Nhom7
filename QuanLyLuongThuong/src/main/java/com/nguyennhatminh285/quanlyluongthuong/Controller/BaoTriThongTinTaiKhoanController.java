@@ -19,6 +19,7 @@ import java.util.ArrayList;
  */
 public class BaoTriThongTinTaiKhoanController {
     private static final String QUERY_ALL_TAIKHOAN = "select * from TaiKhoan";
+    private static final String FIND_TAIKHOAN_BY_ID = "select MaTaiKhoan from TaiKhoan where TaiKhoan = ?";
     private static final String INSERT_NEW_TAIKHOAN = "insert into TaiKhoan(TaiKhoan, MatKhau, Quyen) values(?,?,?)";
     private static final String UPDATE_TAIKHOAN = "update TaiKhoan set TaiKhoan = ?, MatKhau = ?, Quyen = ? where MaTaiKhoan = ?";
     private static final String DELETE_TAIKHOAN = "delete from TaiKhoan where MaTaiKhoan = ?";
@@ -29,6 +30,26 @@ public class BaoTriThongTinTaiKhoanController {
         this.iUpdateTableEvent = iUpdateTableEvent;
     }
     
+    public long onFindTaiKhoanID(String tenTaiKhoan) throws SQLException{
+        Connection connection = null;
+        try {
+            connection = KetNoiCSDL.getConnection(); 
+            PreparedStatement preparedStatement = connection.prepareStatement(FIND_TAIKHOAN_BY_ID);
+            preparedStatement.setString(1, tenTaiKhoan);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            
+            return resultSet.getLong(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        } 
+        finally{
+            if(connection != null){
+                connection.close();
+            }
+        }
+    }
     public ArrayList<TaiKhoan> onQueryAllTaiKhoan() throws SQLException
     {
         Connection connection = null;

@@ -58,4 +58,9 @@ public class HeSoLuong extends BaseModel{
         answer[2] = heSoLuong;
         return answer;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(heSoLuong);
+    }
 }

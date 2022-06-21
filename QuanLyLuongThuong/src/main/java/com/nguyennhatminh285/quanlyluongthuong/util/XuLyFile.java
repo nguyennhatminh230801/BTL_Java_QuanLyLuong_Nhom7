@@ -18,14 +18,15 @@ import java.io.ObjectOutputStream;
  * @author Admin
  */
 public class XuLyFile {
-    private static final String DUONG_DAN_FILE = "C:\\saveData.dat";
-    private static final String LUU_ID = "C:\\saveID.dat";
-    
+    private static final String DUONG_DAN_FILE = "D:\\saveData.txt";
+    private static final String LUU_ID = "D:\\saveID.txt";
+    private static final String LUU_TEN_TAIKHOAN = "D:\\saveAccountRegister.txt";
     public static void luuTaiKhoan(TaiKhoan taiKhoan) throws IOException{
         ObjectOutputStream objectOutputStream = null;
         
         try {
             objectOutputStream = new ObjectOutputStream(new FileOutputStream(DUONG_DAN_FILE));
+            objectOutputStream.reset();
             objectOutputStream.writeObject(taiKhoan);
         } catch (Exception e) {
             e.printStackTrace();
@@ -56,6 +57,7 @@ public class XuLyFile {
         
         try {
             objectOutputStream = new ObjectOutputStream(new FileOutputStream(LUU_ID));
+            objectOutputStream.reset();
             objectOutputStream.writeInt(ID);
         } catch (Exception e) {
             e.printStackTrace();
@@ -73,6 +75,36 @@ public class XuLyFile {
             return objectInputStream.readInt();
         } catch (Exception e) {
             return -1;
+        } finally { 
+            if(objectInputStream != null){
+                objectInputStream.close();
+            }
+        }
+    }
+    
+    public static void LuuTenTenKhoan(String taiKhoan) throws IOException{
+        ObjectOutputStream objectOutputStream = null;
+        
+        try {
+            objectOutputStream = new ObjectOutputStream(new FileOutputStream(LUU_TEN_TAIKHOAN));
+            objectOutputStream.reset();
+            objectOutputStream.writeObject(taiKhoan);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if(objectOutputStream != null){
+                objectOutputStream.close();
+            }
+        }
+    }
+    
+    public static String layTenTaiKhoan() throws IOException{
+        ObjectInputStream objectInputStream = null;
+        try {
+            objectInputStream = new ObjectInputStream(new FileInputStream(LUU_TEN_TAIKHOAN));
+            return (String) objectInputStream.readObject();
+        } catch (Exception e) {
+            return null;
         } finally { 
             if(objectInputStream != null){
                 objectInputStream.close();

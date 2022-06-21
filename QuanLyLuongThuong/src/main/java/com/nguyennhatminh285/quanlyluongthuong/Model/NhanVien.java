@@ -4,44 +4,35 @@
  */
 package com.nguyennhatminh285.quanlyluongthuong.Model;
 
+import java.sql.Date;
+
 /**
  *
  * @author Admin
  */
 public class NhanVien extends BaseModel{
-    private long maNhanVien;
-    private String tenNhanVien;
-    private int gioiTinh;
-    private String ngaySinh;
-    private String diaChi;
-    private String chucVu;
-    private String trinhDo;
-    private String tenTaiKhoan;
-    private String tenPhongBan;
-    private int heSoLuong;
-    
+    protected long maNhanVien;
+    protected String tenNhanVien;
+    protected int gioiTinh;
+    protected Date ngaySinh;
+    protected String diaChi;
+    protected String chucVu;
+    protected String trinhDo;
+    protected long maTaiKhoan;
+    protected long maPhongBan;
+    protected long maHeSoLuong;
+
     public NhanVien() {
     }
 
-    public NhanVien(String tenNhanVien, int gioiTinh, String ngaySinh, String diaChi, String chucVu, String trinhDo) {
-        this.tenNhanVien = tenNhanVien;
-        this.gioiTinh = gioiTinh;
-        this.ngaySinh = ngaySinh;
-        this.diaChi = diaChi;
-        this.chucVu = chucVu;
-        this.trinhDo = trinhDo;
+    public long getMaNhanVien() {
+        return maNhanVien;
     }
 
-    public NhanVien(long maNhanVien, String tenNhanVien, int gioiTinh, String ngaySinh, String diaChi, String chucVu, String trinhDo) {
+    public void setMaNhanVien(long maNhanVien) {
         this.maNhanVien = maNhanVien;
-        this.tenNhanVien = tenNhanVien;
-        this.gioiTinh = gioiTinh;
-        this.ngaySinh = ngaySinh;
-        this.diaChi = diaChi;
-        this.chucVu = chucVu;
-        this.trinhDo = trinhDo;
     }
-    
+
     public String getTenNhanVien() {
         return tenNhanVien;
     }
@@ -58,11 +49,11 @@ public class NhanVien extends BaseModel{
         this.gioiTinh = gioiTinh;
     }
 
-    public String getNgaySinh() {
+    public Date getNgaySinh() {
         return ngaySinh;
     }
 
-    public void setNgaySinh(String ngaySinh) {
+    public void setNgaySinh(Date ngaySinh) {
         this.ngaySinh = ngaySinh;
     }
 
@@ -90,51 +81,50 @@ public class NhanVien extends BaseModel{
         this.trinhDo = trinhDo;
     }
 
-    public long getMaNhanVien() {
-        return maNhanVien;
+    public long getMaTaiKhoan() {
+        return maTaiKhoan;
     }
 
-    public void setMaNhanVien(long maNhanVien) {
+    public void setMaTaiKhoan(long maTaiKhoan) {
+        this.maTaiKhoan = maTaiKhoan;
+    }
+
+    public long getMaPhongBan() {
+        return maPhongBan;
+    }
+
+    public void setMaPhongBan(long maPhongBan) {
+        this.maPhongBan = maPhongBan;
+    }
+
+    public long getMaHeSoLuong() {
+        return maHeSoLuong;
+    }
+
+    public void setMaHeSoLuong(long maHeSoLuong) {
+        this.maHeSoLuong = maHeSoLuong;
+    }
+
+    public NhanVien(long maNhanVien, String tenNhanVien, int gioiTinh, Date ngaySinh, String diaChi, String chucVu, String trinhDo, long maTaiKhoan, long maPhongBan, long maHeSoLuong) {
         this.maNhanVien = maNhanVien;
-    }
-
-    public String getTenTaiKhoan() {
-        return tenTaiKhoan;
-    }
-
-    public void setTenTaiKhoan(String tenTaiKhoan) {
-        this.tenTaiKhoan = tenTaiKhoan;
-    }
-
-    public String getTenPhongBan() {
-        return tenPhongBan;
-    }
-
-    public void setTenPhongBan(String tenPhongBan) {
-        this.tenPhongBan = tenPhongBan;
-    }
-
-    public int getHeSoLuong() {
-        return heSoLuong;
-    }
-
-    public void setHeSoLuong(int heSoLuong) {
-        this.heSoLuong = heSoLuong;
+        this.tenNhanVien = tenNhanVien;
+        this.gioiTinh = gioiTinh;
+        this.ngaySinh = ngaySinh;
+        this.diaChi = diaChi;
+        this.chucVu = chucVu;
+        this.trinhDo = trinhDo;
+        this.maTaiKhoan = maTaiKhoan;
+        this.maPhongBan = maPhongBan;
+        this.maHeSoLuong = maHeSoLuong;
     }
 
     @Override
     public Object[] toObjectArrayData() {
-        Object[] answer = new Object[10];
-        answer[0] = maNhanVien;
-        answer[1] = tenNhanVien;
-        answer[2] = (gioiTinh == 0) ? "Nam" : "Nữ";
-        answer[3] = ngaySinh;
-        answer[4] = diaChi;
-        answer[5] = chucVu;
-        answer[6] = trinhDo;
-        answer[7] = tenTaiKhoan;
-        answer[8] = heSoLuong;
-        answer[9] = tenPhongBan;
-        return answer;
+       return null;
+    }   
+
+    @Override
+    public String toString() {
+        return "NhanVien{" + "maNhanVien=" + maNhanVien + ", tenNhanVien=" + tenNhanVien + ", gioiTinh=" + gioiTinh + ", ngaySinh=" + ngaySinh + ", diaChi=" + diaChi + ", chucVu=" + chucVu + ", trinhDo=" + trinhDo + ", maTaiKhoan=" + maTaiKhoan + ", maPhongBan=" + maPhongBan + ", maHeSoLuong=" + maHeSoLuong + '}';
     }
 }
