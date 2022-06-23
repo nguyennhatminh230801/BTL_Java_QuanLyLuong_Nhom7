@@ -6,11 +6,16 @@ package com.nguyennhatminh285.quanlyluongthuong.Controller;
 
 import com.nguyennhatminh285.quanlyluongthuong.Model.TaiKhoan;
 import com.nguyennhatminh285.quanlyluongthuong.View.TrangChu.TrangChuAdmin.TrangChuAdminUI;
+import com.nguyennhatminh285.quanlyluongthuong.View.TrangChu.TrangChuGiamDoc.TrangChuGiamDocUI;
+import com.nguyennhatminh285.quanlyluongthuong.View.TrangChu.TrangChuKeToan.TrangChuKeToanUI;
+import com.nguyennhatminh285.quanlyluongthuong.View.TrangChu.TrangChuNguoiDung.TrangChuNguoiDungUI;
+import com.nguyennhatminh285.quanlyluongthuong.View.TrangChu.TrangChuNhanSu.TrangChuNhanSuUI;
 import com.nguyennhatminh285.quanlyluongthuong.util.KetNoiCSDL;
 import com.nguyennhatminh285.quanlyluongthuong.util.XuLyFile;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.HashMap;
 
 
 /**
@@ -21,7 +26,7 @@ public class DangNhapController {
     private static final String findExistUser = "select count(*) from TAIKHOAN where taikhoan = ? " 
     + "and matkhau = ?";
     
-    private static final String quyenNguoiDung = "select mataikhoan, quyen from taikhoan where taikhoan = ? and matkhau = ?";
+    private static final String quyenNguoiDung = "select TAIKHOAN.MATAIKHOAN, TENNHANVIEN, QUYEN from TAIKHOAN inner join NHANVIEN on TAIKHOAN.MATAIKHOAN = NHANVIEN.MATAIKHOAN where taikhoan = ? and matkhau = ?";
     public static String onLoginEvent(TaiKhoan taiKhoan){
         try{
             Connection connection = KetNoiCSDL.getConnection();
@@ -48,11 +53,33 @@ public class DangNhapController {
             
             int ID = resultSet1.getInt(1);
             XuLyFile.luuIDTaiKhoan(ID);
-            int quyen = resultSet1.getInt(2);
+            String tenTaiKhoan = resultSet1.getString(2);
+            int quyen = resultSet1.getInt(3);
+            
+            HashMap<String, Object> data = new HashMap<>();
+            data.put("TenTaiKhoan", tenTaiKhoan);
+            data.put("ID", ID);
             
             switch(quyen){
                 case 0:
-                    new TrangChuAdminUI().onStartGUI();
+                    TrangChuAdminUI trangChuAdminUI = new TrangChuAdminUI(data);
+                    trangChuAdminUI.onStartGUI();
+                    break;
+                case 1:
+                    TrangChuNguoiDungUI trangChuNguoiDungUI = new TrangChuNguoiDungUI(data);
+                    trangChuNguoiDungUI.onStartGUI();
+                    break;
+                case 2:
+                    TrangChuKeToanUI trangChuKeToanUI = new TrangChuKeToanUI(data);
+                    trangChuKeToanUI.onStartGUI();
+                    break;
+                case 3:
+                    TrangChuNhanSuUI trangChuNhanSuUI = new TrangChuNhanSuUI(data);
+                    trangChuNhanSuUI.onStartGUI();
+                    break;
+                case 4:
+                    TrangChuGiamDocUI trangChuGiamDocUI = new TrangChuGiamDocUI(data);
+                    trangChuGiamDocUI.onStartGUI();
                     break;
             }
             

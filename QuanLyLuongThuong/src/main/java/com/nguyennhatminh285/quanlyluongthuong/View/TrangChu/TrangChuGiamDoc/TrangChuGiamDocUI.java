@@ -6,17 +6,26 @@ package com.nguyennhatminh285.quanlyluongthuong.View.TrangChu.TrangChuGiamDoc;
 
 import com.nguyennhatminh285.quanlyluongthuong.View.QuanLyThongTinCaNhan.QuanLyThongTinCaNhanUI;
 import com.nguyennhatminh285.quanlyluongthuong.View.XemChiTietLuongCaNhan.XemChiTietLuongCaNhanUI;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Admin
  */
 public class TrangChuGiamDocUI extends javax.swing.JFrame {
-
+    private HashMap<String, Object> data;
+    
+    public void setData(HashMap<String, Object> data) {
+        this.data = data;
+    }
     /**
      * Creates new form TrangChuGiamDocUI
      */
-    public TrangChuGiamDocUI() {
+    public TrangChuGiamDocUI(HashMap<String, Object> data) {
+        this.data = data;
         initComponents();
     }
 
@@ -140,12 +149,21 @@ public class TrangChuGiamDocUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDangXuatActionPerformed
 
     private void btnXemChiTietLuongCaNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemChiTietLuongCaNhanActionPerformed
-        new XemChiTietLuongCaNhanUI().onStartGUI();
+        XemChiTietLuongCaNhanUI xemChiTietLuongCaNhanUI = new XemChiTietLuongCaNhanUI();
+        xemChiTietLuongCaNhanUI.setData(data);
+        xemChiTietLuongCaNhanUI.onStartGUI();
         dispose();
     }//GEN-LAST:event_btnXemChiTietLuongCaNhanActionPerformed
 
     private void btnSuaThongTinCaNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaThongTinCaNhanActionPerformed
-        new QuanLyThongTinCaNhanUI().onStartGUI();
+        QuanLyThongTinCaNhanUI quanLyThongTinCaNhanUI;
+        try {
+            quanLyThongTinCaNhanUI = new QuanLyThongTinCaNhanUI(data);
+            quanLyThongTinCaNhanUI.onStartGUI();
+        } catch (SQLException ex) {
+            Logger.getLogger(TrangChuGiamDocUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         dispose();
     }//GEN-LAST:event_btnSuaThongTinCaNhanActionPerformed
 
@@ -184,7 +202,7 @@ public class TrangChuGiamDocUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TrangChuGiamDocUI().setVisible(true);
+                new TrangChuGiamDocUI(data).setVisible(true);
             }
         });
     }

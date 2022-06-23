@@ -18,6 +18,7 @@ import com.nguyennhatminh285.quanlyluongthuong.util.IOptionEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -27,15 +28,23 @@ import javax.swing.JButton;
  * @author Admin
  */
 public class TrangChuAdminUI extends javax.swing.JFrame implements ActionListener{
-
+    private HashMap<String, Object> data;
+    
+    public void setData(HashMap<String, Object> data) {
+        this.data = data;
+    }
     /**
      * Creates new form TrangChuAdminUI
+     * @param data
      */
-    public TrangChuAdminUI() {
+    public TrangChuAdminUI(HashMap<String, Object> data) {
+        this.data = data;
         initComponents();
         setLocationRelativeTo(null);
     }
 
+    
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -58,6 +67,7 @@ public class TrangChuAdminUI extends javax.swing.JFrame implements ActionListene
         btnDangXuat = new javax.swing.JButton();
         btnXemChiTietLuongCaNhan = new javax.swing.JButton();
         btnQuanLyThongTinCaNhan = new javax.swing.JButton();
+        lblUsername = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Trang Chủ Quản Trị");
@@ -105,47 +115,53 @@ public class TrangChuAdminUI extends javax.swing.JFrame implements ActionListene
         btnQuanLyThongTinCaNhan.setFont(btnQuanLyThongTinCaNhan.getFont().deriveFont(btnQuanLyThongTinCaNhan.getFont().getSize()+3f));
         btnQuanLyThongTinCaNhan.setText("Quản Lý Thông Tin Cá Nhân");
 
+        lblUsername.setText("Xin chào, Minh");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addGap(85, 85, 85)
-                        .addComponent(btnDangXuat))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(76, 76, 76)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnHocPhan, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnPhuCap, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblUsername)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1)
+                                .addGap(85, 85, 85)
+                                .addComponent(btnDangXuat))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnHocPhan, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnPhuCap, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnHeSoLuong, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnTienThuong, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnChamCong, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnPhongBan, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnThoat, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(108, 108, 108)
+                        .addComponent(btnXemChiTietLuongCaNhan)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnHeSoLuong, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnTienThuong, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnChamCong, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnPhongBan, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnThoat, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(btnQuanLyThongTinCaNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(60, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(108, 108, 108)
-                .addComponent(btnXemChiTietLuongCaNhan)
-                .addGap(18, 18, 18)
-                .addComponent(btnQuanLyThongTinCaNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(lblUsername))
                     .addComponent(btnDangXuat))
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,11 +220,13 @@ public class TrangChuAdminUI extends javax.swing.JFrame implements ActionListene
             java.util.logging.Logger.getLogger(TrangChuAdminUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+         
+        lblUsername.setText("Xin chào," + data.get("TenTaiKhoan"));
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TrangChuAdminUI().setVisible(true);
+                new TrangChuAdminUI(data).setVisible(true);
             }
         });
     }
@@ -227,16 +245,28 @@ public class TrangChuAdminUI extends javax.swing.JFrame implements ActionListene
     private javax.swing.JButton btnTienThuong;
     private javax.swing.JButton btnXemChiTietLuongCaNhan;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblUsername;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void actionPerformed(ActionEvent e) {
         JButton jButton = (JButton) e.getSource();
         
+        //Button Xem Chi Tiet Luong Ca Nhan
+        if(jButton.equals(btnXemChiTietLuongCaNhan)){
+            XemChiTietLuongCaNhanUI xemChiTietLuongCaNhanUI = new XemChiTietLuongCaNhanUI();
+            xemChiTietLuongCaNhanUI.setData(data);
+            xemChiTietLuongCaNhanUI.onStartGUI();
+            dispose();
+            return;
+        }
+        
         //Button Tai Khoan
         if(jButton.equals(btnTaiKhoan)){
             try {
-                new BaoTriThongTinTaiKhoanUI().onStartGUI();
+                BaoTriThongTinTaiKhoanUI baoTriThongTinTaiKhoanUI = new BaoTriThongTinTaiKhoanUI();
+                baoTriThongTinTaiKhoanUI.setData(data);
+                baoTriThongTinTaiKhoanUI.onStartGUI();
             } catch (SQLException ex) {
                 Logger.getLogger(TrangChuAdminUI.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -247,7 +277,9 @@ public class TrangChuAdminUI extends javax.swing.JFrame implements ActionListene
         //Button He So Luong
         if(jButton.equals(btnHeSoLuong)){
             try {
-                new BaoTriThongTinHeSoLuongUI().onStartGUI();
+                BaoTriThongTinHeSoLuongUI baoTriThongTinHeSoLuongUI = new BaoTriThongTinHeSoLuongUI();
+                baoTriThongTinHeSoLuongUI.setData(data);
+                baoTriThongTinHeSoLuongUI.onStartGUI();
             } catch (SQLException ex) {
                 Logger.getLogger(TrangChuAdminUI.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -258,7 +290,9 @@ public class TrangChuAdminUI extends javax.swing.JFrame implements ActionListene
         //Button Hoc Phan
         if(jButton.equals(btnHocPhan)){
             try {
-                new BaoTriThongTinHocPhanUI().onStartGUI();
+                BaoTriThongTinHocPhanUI baoTriThongTinHocPhanUI = new BaoTriThongTinHocPhanUI();
+                baoTriThongTinHocPhanUI.setData(data);
+                baoTriThongTinHocPhanUI.onStartGUI();
             } catch (SQLException ex) {
                 Logger.getLogger(TrangChuAdminUI.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -269,7 +303,9 @@ public class TrangChuAdminUI extends javax.swing.JFrame implements ActionListene
         //Button Nhan Vien
         if(jButton.equals(btnNhanVien)){
             try {
-                new BaoTriThongTinNhanVienUI().onStartGUI();
+               BaoTriThongTinNhanVienUI baoTriThongTinNhanVienUI = new BaoTriThongTinNhanVienUI();
+               baoTriThongTinNhanVienUI.setData(data);
+               baoTriThongTinNhanVienUI.onStartGUI();
             } catch (SQLException ex) {
                 Logger.getLogger(TrangChuAdminUI.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -280,7 +316,9 @@ public class TrangChuAdminUI extends javax.swing.JFrame implements ActionListene
         //Button Phong Ban
         if(jButton.equals(btnPhongBan)){
             try {
-                new BaoTriThongTinPhongBanUI().onStartGUI();
+                BaoTriThongTinPhongBanUI baoTriThongTinPhongBanUI = new BaoTriThongTinPhongBanUI();
+                baoTriThongTinPhongBanUI.setData(data);
+                baoTriThongTinPhongBanUI.onStartGUI();
             } catch (SQLException ex) {
                 Logger.getLogger(TrangChuAdminUI.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -291,7 +329,9 @@ public class TrangChuAdminUI extends javax.swing.JFrame implements ActionListene
         //Button Phu Cap
         if(jButton.equals(btnPhuCap)){
             try {
-                new BaoTriThongTinPhuCapUI().onStartGUI();
+                BaoTriThongTinPhuCapUI baoTriThongTinPhuCapUI = new BaoTriThongTinPhuCapUI();
+                baoTriThongTinPhuCapUI.setData(data);
+                baoTriThongTinPhuCapUI.onStartGUI();
             } catch (SQLException ex) {
                 Logger.getLogger(TrangChuAdminUI.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -307,7 +347,9 @@ public class TrangChuAdminUI extends javax.swing.JFrame implements ActionListene
         //Button Tien Thuong
         if(jButton.equals(btnTienThuong)){
             try {
-                new BaoTriThongTinTienThuongUI().onStartGUI();
+                BaoTriThongTinTienThuongUI baoTriThongTinTienThuongUI = new BaoTriThongTinTienThuongUI();
+                baoTriThongTinTienThuongUI.setData(data);
+                baoTriThongTinTienThuongUI.onStartGUI();
             } catch (SQLException ex) {
                 Logger.getLogger(TrangChuAdminUI.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -317,14 +359,21 @@ public class TrangChuAdminUI extends javax.swing.JFrame implements ActionListene
         
         //Button Xem Chi Tiet Luong Ca Nhan
         if(jButton.equals(btnXemChiTietLuongCaNhan)){
-            new XemChiTietLuongCaNhanUI().onStartGUI();
+            XemChiTietLuongCaNhanUI xemChiTietLuongCaNhanUI = new XemChiTietLuongCaNhanUI();
+            xemChiTietLuongCaNhanUI.setData(data);
+            xemChiTietLuongCaNhanUI.onStartGUI();
             dispose();
             return;
         }
         
         //Button Quan Ly Thong Tin Ca Nhan
         if(jButton.equals(btnQuanLyThongTinCaNhan)){
-            new QuanLyThongTinCaNhanUI().onStartGUI();
+            try {
+                QuanLyThongTinCaNhanUI quanLyThongTinCaNhanUI = new QuanLyThongTinCaNhanUI(data);
+                quanLyThongTinCaNhanUI.onStartGUI();
+            } catch (SQLException ex) {
+                Logger.getLogger(TrangChuAdminUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
             dispose();
             return;
         }

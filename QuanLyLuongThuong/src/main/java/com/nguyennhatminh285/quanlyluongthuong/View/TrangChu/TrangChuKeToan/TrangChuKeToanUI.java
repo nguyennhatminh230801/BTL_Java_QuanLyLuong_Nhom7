@@ -6,17 +6,26 @@ package com.nguyennhatminh285.quanlyluongthuong.View.TrangChu.TrangChuKeToan;
 
 import com.nguyennhatminh285.quanlyluongthuong.View.QuanLyThongTinCaNhan.QuanLyThongTinCaNhanUI;
 import com.nguyennhatminh285.quanlyluongthuong.View.XemChiTietLuongCaNhan.XemChiTietLuongCaNhanUI;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Admin
  */
 public class TrangChuKeToanUI extends javax.swing.JFrame {
-
+    private HashMap<String, Object> data;
+    
+    public void setData(HashMap<String, Object> data) {
+        this.data = data;
+    }
     /**
      * Creates new form TrangChuKeToanUI
      */
-    public TrangChuKeToanUI() {
+    public TrangChuKeToanUI(HashMap<String, Object> data) {
+        this.data = data;
         initComponents();
     }
 
@@ -124,7 +133,11 @@ public class TrangChuKeToanUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnXemChiTietLuongCaNhanActionPerformed
 
     private void btnSuaThongTinCaNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaThongTinCaNhanActionPerformed
-        new QuanLyThongTinCaNhanUI().onStartGUI();
+        try {
+            new QuanLyThongTinCaNhanUI(data).onStartGUI();
+        } catch (SQLException ex) {
+            Logger.getLogger(TrangChuKeToanUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
         dispose();
     }//GEN-LAST:event_btnSuaThongTinCaNhanActionPerformed
 
@@ -163,7 +176,7 @@ public class TrangChuKeToanUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TrangChuKeToanUI().setVisible(true);
+                new TrangChuKeToanUI(data).setVisible(true);
             }
         });
     }

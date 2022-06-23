@@ -39,6 +39,12 @@ public class BaoTriThongTinNhanVienUI extends javax.swing.JFrame {
     /**
      * Creates new form BaoTriThongTinNhanVienUI
      */
+    private HashMap<String, Object> data;
+    
+    public void setData(HashMap<String, Object> data) {
+        this.data = data;
+    }
+    
     public BaoTriThongTinNhanVienUI() throws SQLException {
         initComponents();
         setLocationRelativeTo(null);

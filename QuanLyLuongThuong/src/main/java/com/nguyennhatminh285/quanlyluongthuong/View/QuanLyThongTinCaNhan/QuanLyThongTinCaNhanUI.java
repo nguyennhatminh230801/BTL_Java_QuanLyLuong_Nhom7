@@ -4,19 +4,36 @@
  */
 package com.nguyennhatminh285.quanlyluongthuong.View.QuanLyThongTinCaNhan;
 
+import com.nguyennhatminh285.quanlyluongthuong.Controller.QuanLyThongTinCaNhanController;
 import com.nguyennhatminh285.quanlyluongthuong.Model.NhanVien;
 import java.sql.Date;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Admin
  */
 public class QuanLyThongTinCaNhanUI extends javax.swing.JFrame {
+    private QuanLyThongTinCaNhanController controller;
+    private HashMap<String, Object> data;
 
+    public QuanLyThongTinCaNhanUI() {
+    }
+   
+    public void setData(HashMap<String, Object> data) {
+        this.data = data;
+    }
     /**
      * Creates new form XemThongTinCaNhanUI
+     * @param data
+     * @throws java.sql.SQLException
      */
-    public QuanLyThongTinCaNhanUI() {
+    public QuanLyThongTinCaNhanUI(HashMap<String, Object> data) throws SQLException {
+        this.data = data;
+        controller = new QuanLyThongTinCaNhanController();
         initComponents();
         initData();
     }
@@ -203,7 +220,7 @@ public class QuanLyThongTinCaNhanUI extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnQuayLaiActionPerformed
 
-    public void onStartGUI() {
+    public void onStartGUI() throws SQLException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -227,40 +244,47 @@ public class QuanLyThongTinCaNhanUI extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new QuanLyThongTinCaNhanUI().setVisible(true);
+                try {
+                    new QuanLyThongTinCaNhanUI(data).setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(QuanLyThongTinCaNhanUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
-    private void initData(){
-        NhanVien nhanVien = null;
-        txtHoTen.setText(nhanVien.getTenNhanVien());
-        txtNgaySinh.setDate(new Date(txtNgaySinh.getDate().getTime()));
-        txtDiaChi.setText(nhanVien.getDiaChi());
-        
-        for(int i = 0; i < cboChucVu.getItemCount() ; i++){
-            if(cboChucVu.getItemAt(i).equalsIgnoreCase(nhanVien.getChucVu())){
-                cboChucVu.setSelectedIndex(i);
-                break;
+    private void initData() throws SQLException{
+        NhanVien nhanVien = controller.onQueryUserInfo((int) data.get("ID"));
+        if(nhanVien != null)
+        {
+            txtHoTen.setText(nhanVien.getTenNhanVien());
+            txtNgaySinh.setDate(new Date(nhanVien.getNgaySinh().getTime()));
+            txtDiaChi.setText(nhanVien.getDiaChi());
+
+            for(int i = 0; i < cboChucVu.getItemCount() ; i++){
+                if(cboChucVu.getItemAt(i).equalsIgnoreCase(nhanVien.getChucVu())){
+                    cboChucVu.setSelectedIndex(i);
+                    break;
+                }
             }
-        }
-        
-        for(int i = 0; i < cboTrinhDo.getItemCount() ; i++){
-            if(cboTrinhDo.getItemAt(i).equalsIgnoreCase(nhanVien.getTrinhDo())){
-                cboTrinhDo.setSelectedIndex(i);
-                break;
+
+            for(int i = 0; i < cboTrinhDo.getItemCount() ; i++){
+                if(cboTrinhDo.getItemAt(i).equalsIgnoreCase(nhanVien.getTrinhDo())){
+                    cboTrinhDo.setSelectedIndex(i);
+                    break;
+                }
             }
-        }
-        
-        if(nhanVien.getGioiTinh() == 0){
-            rdNam.setSelected(true);
-        }else{
-            rdNu.setSelected(true);
-        }
+
+            if(nhanVien.getGioiTinh() == 0){
+                rdNam.setSelected(true);
+            }else{
+                rdNu.setSelected(true);
+            }
+        } 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnQuayLai;

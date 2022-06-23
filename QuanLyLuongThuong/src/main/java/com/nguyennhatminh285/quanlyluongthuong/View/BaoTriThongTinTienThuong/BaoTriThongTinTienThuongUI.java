@@ -12,6 +12,7 @@ import com.nguyennhatminh285.quanlyluongthuong.util.IOptionEvent;
 import com.nguyennhatminh285.quanlyluongthuong.util.IUpdateTableEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -21,6 +22,11 @@ import javax.swing.table.TableModel;
 
 public class BaoTriThongTinTienThuongUI extends javax.swing.JFrame {
     private BaoTriThongTinTienThuongController baoTriThongTinTienThuongController;
+    private HashMap<String, Object> data;
+    
+    public void setData(HashMap<String, Object> data) {
+        this.data = data;
+    }
     /**
      * Creates new form BaoTriThongTinTienThuongUI
      */

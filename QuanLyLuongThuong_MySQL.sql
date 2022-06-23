@@ -104,4 +104,14 @@ select * from HESOLUONG;
 select * from PHONGBAN;
 select * from TAIKHOAN;
 
+select TENNHANVIEN, GIOITINH, NGAYSINH, DIACHI, CHUCVU, TRINHDO from NHANVIEN inner join TAIKHOAN on NHANVIEN.MATAIKHOAN = TAIKHOAN.MATAIKHOAN where TAIKHOAN.MATAIKHOAN = 6;
 select * from HOCPHAN;
+
+DELIMITER //
+create procedure xemTienLuong(maTaiKhoan long)
+begin
+	
+end
+//
+
+DELIMITER ;

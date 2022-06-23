@@ -76,8 +76,8 @@
                   <Component id="btnXemLuongTheoThoiGian1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="349" max="-2" attributes="0"/>
+              <EmptySpace pref="19" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -182,8 +182,7 @@
               </FontInfo>
             </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="7" rowCount="4">
-                <Column editable="true" title="M&#xe3; L&#x1b0;&#x1a1;ng" type="java.lang.Integer"/>
+              <Table columnCount="6" rowCount="4">
                 <Column editable="true" title="Th&#xe1;ng" type="java.lang.Integer"/>
                 <Column editable="true" title="N&#x103;m" type="java.lang.Integer"/>
                 <Column editable="true" title="H&#x1ec7; S&#x1ed1; L&#x1b0;&#x1a1;ng" type="java.lang.Float"/>
@@ -194,11 +193,6 @@
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>

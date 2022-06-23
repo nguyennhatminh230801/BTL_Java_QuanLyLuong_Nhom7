@@ -5,7 +5,7 @@
 package com.nguyennhatminh285.quanlyluongthuong.View.XemChiTietLuongCaNhan;
 
 import java.util.ArrayList;
-import javax.swing.ComboBoxModel;
+import java.util.HashMap;
 import javax.swing.DefaultComboBoxModel;
 
 /**
@@ -13,14 +13,15 @@ import javax.swing.DefaultComboBoxModel;
  * @author Admin
  */
 public class XemChiTietLuongCaNhanUI extends javax.swing.JFrame {
-
-    /**
-     * Creates new form XemChiTietLuongCaNhan
-     */
+    private HashMap<String, Object> data;
+    
+    public void setData(HashMap<String, Object> data) {
+        this.data = data;
+    }
+   
     public XemChiTietLuongCaNhanUI() {
         initComponents();
         setLocationRelativeTo(null);
-        
         generateComboBoxData();
     }
 
@@ -69,17 +70,17 @@ public class XemChiTietLuongCaNhanUI extends javax.swing.JFrame {
         jTable1.setFont(jTable1.getFont().deriveFont(jTable1.getFont().getSize()+3f));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Mã Lương", "Tháng", "Năm", "Hệ Số Lương", "Tiền Phụ Cấp", "Tiền Thưởng", "Tổng Lương"
+                "Tháng", "Năm", "Hệ Số Lương", "Tiền Phụ Cấp", "Tiền Thưởng", "Tổng Lương"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -133,8 +134,8 @@ public class XemChiTietLuongCaNhanUI extends javax.swing.JFrame {
                     .addComponent(btnXemLuongTheoThoiGian)
                     .addComponent(btnXemLuongTheoThoiGian1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();

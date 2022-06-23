@@ -6,18 +6,31 @@ package com.nguyennhatminh285.quanlyluongthuong.View.TrangChu.TrangChuNguoiDung;
 
 import com.nguyennhatminh285.quanlyluongthuong.View.XemChiTietLuongCaNhan.XemChiTietLuongCaNhanUI;
 import com.nguyennhatminh285.quanlyluongthuong.View.QuanLyThongTinCaNhan.QuanLyThongTinCaNhanUI;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Admin
  */
 public class TrangChuNguoiDungUI extends javax.swing.JFrame {
-
+    private HashMap<String, Object> data;
+    
+    public void setData(HashMap<String, Object> data) {
+        this.data = data;
+    }
     /**
      * Creates new form TrangChuNguoiDungUI
+     * @param data
      */
-    public TrangChuNguoiDungUI() {
+    public TrangChuNguoiDungUI(HashMap<String, Object> data) {
+        this.data = data;
         initComponents();
+        setLocationRelativeTo(null);  
+        
+        
     }
 
     /**
@@ -33,8 +46,10 @@ public class TrangChuNguoiDungUI extends javax.swing.JFrame {
         btnSuaThongTinCaNhan = new javax.swing.JButton();
         btnDangXuat = new javax.swing.JButton();
         btnXemChiTietLuongCaNhan = new javax.swing.JButton();
+        lblUsername = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Trang Chủ");
 
         jLabel1.setFont(jLabel1.getFont().deriveFont(jLabel1.getFont().getStyle() | java.awt.Font.BOLD, jLabel1.getFont().getSize()+11));
         jLabel1.setText("Trang Chủ");
@@ -62,14 +77,18 @@ public class TrangChuNguoiDungUI extends javax.swing.JFrame {
             }
         });
 
+        lblUsername.setText("Xin Chào, User");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(270, 270, 270)
+                .addGap(88, 88, 88)
+                .addComponent(lblUsername)
+                .addGap(145, 145, 145)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addComponent(btnDangXuat)
                 .addGap(85, 85, 85))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -84,7 +103,9 @@ public class TrangChuNguoiDungUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(lblUsername))
                     .addComponent(btnDangXuat))
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -97,12 +118,21 @@ public class TrangChuNguoiDungUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSuaThongTinCaNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaThongTinCaNhanActionPerformed
-        new QuanLyThongTinCaNhanUI().onStartGUI();
-        dispose();
+        QuanLyThongTinCaNhanUI quanLyThongTinCaNhanUI;
+        try {
+            quanLyThongTinCaNhanUI = new QuanLyThongTinCaNhanUI(data);
+            quanLyThongTinCaNhanUI.onStartGUI();
+            dispose();
+        } catch (SQLException ex) {
+            Logger.getLogger(TrangChuNguoiDungUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_btnSuaThongTinCaNhanActionPerformed
 
     private void btnXemChiTietLuongCaNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemChiTietLuongCaNhanActionPerformed
-        new XemChiTietLuongCaNhanUI().onStartGUI();
+        XemChiTietLuongCaNhanUI xemChiTietLuongCaNhanUI = new XemChiTietLuongCaNhanUI();
+        xemChiTietLuongCaNhanUI.setData(data);
+        xemChiTietLuongCaNhanUI.onStartGUI();
         dispose();
     }//GEN-LAST:event_btnXemChiTietLuongCaNhanActionPerformed
 
@@ -133,11 +163,16 @@ public class TrangChuNguoiDungUI extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(TrangChuNguoiDungUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
+        String res1 = String.format("Xin chào, %20s", data.get("TenTaiKhoan"));
+        System.out.println("res1: " + res1);
+        lblUsername.setText(res1);
+        super.update(getGraphics());
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TrangChuNguoiDungUI().setVisible(true);
+                new TrangChuNguoiDungUI(data).setVisible(true);
             }
         });
     }
@@ -147,5 +182,6 @@ public class TrangChuNguoiDungUI extends javax.swing.JFrame {
     private javax.swing.JButton btnSuaThongTinCaNhan;
     private javax.swing.JButton btnXemChiTietLuongCaNhan;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblUsername;
     // End of variables declaration//GEN-END:variables
 }
