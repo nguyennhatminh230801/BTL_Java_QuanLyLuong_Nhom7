@@ -1,3 +1,5 @@
+create database QuanLyLuongThuong;
+
 use QuanLyLuongThuong;
 
 -- Creating table
@@ -67,23 +69,23 @@ create table CHAMCONG(
     TIENUNGTRUOC bigint,
     MANHANVIEN bigint,
     primary key(MACONG),
-    foreign key(MANHANVIEN) references NHANVIEN(MANHANVIEN) 
+    foreign key(MANHANVIEN) references NHANVIEN(MANHANVIEN) on update cascade on delete cascade
 );
 
 create table DANHSACHTHUONG(
 	MATHUONG bigint,
     MACONG bigint,
     primary key(MATHUONG, MACONG),
-    foreign key(MATHUONG) references THUONG(MATHUONG),
-    foreign key(MACONG) references CHAMCONG(MACONG)
+    foreign key(MATHUONG) references THUONG(MATHUONG) on update cascade on delete cascade,
+    foreign key(MACONG) references CHAMCONG(MACONG) on update cascade on delete cascade
 );
 
 create table DANHSACHPHUCAP(
 	MAPHUCAP bigint,
     MACONG bigint,
     primary key(MAPHUCAP, MACONG),
-    foreign key(MAPHUCAP) references PHUCAP(MAPHUCAP),
-    foreign key(MACONG) references CHAMCONG(MACONG)
+    foreign key(MAPHUCAP) references PHUCAP(MAPHUCAP) on update cascade on delete cascade,
+    foreign key(MACONG) references CHAMCONG(MACONG) on update cascade on delete cascade
 );
 
 create table CHAMCONG_HOCPHAN(
@@ -107,11 +109,3 @@ select * from TAIKHOAN;
 select TENNHANVIEN, GIOITINH, NGAYSINH, DIACHI, CHUCVU, TRINHDO from NHANVIEN inner join TAIKHOAN on NHANVIEN.MATAIKHOAN = TAIKHOAN.MATAIKHOAN where TAIKHOAN.MATAIKHOAN = 6;
 select * from HOCPHAN;
 
-DELIMITER //
-create procedure xemTienLuong(maTaiKhoan long)
-begin
-	
-end
-//
-
-DELIMITER ;
