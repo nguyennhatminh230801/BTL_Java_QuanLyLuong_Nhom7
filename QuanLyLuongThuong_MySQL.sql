@@ -1,5 +1,3 @@
-create database QuanLyLuongThuong;
-
 use QuanLyLuongThuong;
 
 -- Creating table
@@ -101,11 +99,7 @@ alter table NHANVIEN add MATAIKHOAN bigint after MAHESOLUONG;
 alter table NHANVIEN add constraint FK_MATK foreign key(MATAIKHOAN) references TAIKHOAN(MATAIKHOAN);
 alter table HOCPHAN add SOTINCHI int after TENHOCPHAN;
 
-select * from NHANVIEN;
-select * from HESOLUONG;
-select * from PHONGBAN;
 select * from TAIKHOAN;
 
-select TENNHANVIEN, GIOITINH, NGAYSINH, DIACHI, CHUCVU, TRINHDO from NHANVIEN inner join TAIKHOAN on NHANVIEN.MATAIKHOAN = TAIKHOAN.MATAIKHOAN where TAIKHOAN.MATAIKHOAN = 6;
-select * from HOCPHAN;
+insert into TAIKHOAN(TAIKHOAN, MATKHAU, QUYEN) values('admin', 'admin', 0);
 

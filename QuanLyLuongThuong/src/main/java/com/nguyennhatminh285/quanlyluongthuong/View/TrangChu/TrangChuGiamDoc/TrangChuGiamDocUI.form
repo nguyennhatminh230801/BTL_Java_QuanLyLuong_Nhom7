@@ -145,7 +145,7 @@
             <Font component="btnXemChiTietLuongCaNhan1" property="font" relativeSize="true" size="3"/>
           </FontInfo>
         </Property>
-        <Property name="text" type="java.lang.String" value="Xem Th&#x1ed1;ng K&#xea; L&#x1b0;&#x1a1;ng Theo T&#x1eeb;ng Ph&#xf2;ng Ban"/>
+        <Property name="text" type="java.lang.String" value="Xem Th&#x1ed1;ng K&#xea; L&#x1b0;&#x1a1;ng C&#x1ea3; C&#xf4;ng Ty"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXemChiTietLuongCaNhan1ActionPerformed"/>

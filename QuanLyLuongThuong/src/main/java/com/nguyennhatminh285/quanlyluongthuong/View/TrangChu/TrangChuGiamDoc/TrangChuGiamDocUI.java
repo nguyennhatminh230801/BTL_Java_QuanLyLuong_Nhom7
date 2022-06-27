@@ -82,7 +82,7 @@ public class TrangChuGiamDocUI extends javax.swing.JFrame {
         jButton2.setText("Xem Thông Tin Phụ Cấp");
 
         btnXemChiTietLuongCaNhan1.setFont(btnXemChiTietLuongCaNhan1.getFont().deriveFont(btnXemChiTietLuongCaNhan1.getFont().getSize()+3f));
-        btnXemChiTietLuongCaNhan1.setText("Xem Thống Kê Lương Theo Từng Phòng Ban");
+        btnXemChiTietLuongCaNhan1.setText("Xem Thống Kê Lương Cả Công Ty");
         btnXemChiTietLuongCaNhan1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnXemChiTietLuongCaNhan1ActionPerformed(evt);

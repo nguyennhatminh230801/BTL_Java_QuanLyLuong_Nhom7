@@ -70,17 +70,17 @@ public class XemChiTietLuongCaNhanUI extends javax.swing.JFrame {
         jTable1.setFont(jTable1.getFont().deriveFont(jTable1.getFont().getSize()+3f));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Tháng", "Năm", "Hệ Số Lương", "Tiền Phụ Cấp", "Tiền Thưởng", "Tổng Lương"
+                "Mã Công", "Tháng", "Năm", "Hệ Số Lương", "Tiền Phụ Cấp", "Tiền Thưởng", "Tổng Lương"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class
+                java.lang.Long.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class
             };
 
             public Class getColumnClass(int columnIndex) {

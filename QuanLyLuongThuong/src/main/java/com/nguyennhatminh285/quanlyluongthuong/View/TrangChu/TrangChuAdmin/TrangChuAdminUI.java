@@ -151,7 +151,7 @@ public class TrangChuAdminUI extends javax.swing.JFrame implements ActionListene
                         .addGap(108, 108, 108)
                         .addComponent(btnXemChiTietLuongCaNhan)
                         .addGap(18, 18, 18)
-                        .addComponent(btnQuanLyThongTinCaNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnQuanLyThongTinCaNhan)))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(

@@ -61,7 +61,7 @@
                       <EmptySpace min="-2" pref="108" max="-2" attributes="0"/>
                       <Component id="btnXemChiTietLuongCaNhan" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnQuanLyThongTinCaNhan" min="-2" pref="217" max="-2" attributes="0"/>
+                      <Component id="btnQuanLyThongTinCaNhan" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="60" max="32767" attributes="0"/>
